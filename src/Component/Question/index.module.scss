@@ -1,0 +1,57 @@
+@import '../../var.scss';
+
+.mcq {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 1200px;
+  margin: auto;
+  width: 80vw;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  padding: 15px;
+
+  img {
+    width: 40%;
+  }
+
+  h2 {
+    width: 90%;
+    margin: 20px;
+    font-size: max(3.5vw, 28px); // https://stackoverflow.com/a/19818026/5277189
+    max-height: 200px;
+    overflow: auto;
+    text-align: center;
+  }
+
+  .choiceWrapper {
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .choice {
+      background: $secondary;
+      color: $secondary-t;
+      border-radius: 15px;
+      display: inline-block;
+      height: 55px;
+      width: 70vw;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+      display: grid;
+      place-content: center;
+
+      h6 {
+        font-size: max(1.5vw, 18px);
+      }
+
+
+      &:hover {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      }
+    }
+  }
+
+}

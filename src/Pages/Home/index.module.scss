@@ -1,0 +1,29 @@
+@import '../../var.scss';
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  h1 {
+    font-size: min(15vw, 86px);
+    color: $svg-shade;
+  }
+  
+  h2 {
+    font-size: min(10vw, 54px);
+  }
+
+  button {
+    margin: 25px;
+    padding: 15px 30px;
+    border-radius: 15px;
+    background-color: $secondary;
+    color: $secondary-t;
+    font-size: min(5vw, 26px);
+    border: 1px solid $svg-shade;
+    @include hover()
+  }
+}

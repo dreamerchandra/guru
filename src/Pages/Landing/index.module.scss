@@ -1,0 +1,57 @@
+@import '../../var.scss';
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 64px;
+
+  h1 {
+    font-size: max(3.5vw, 28px);
+    align-self: flex-start;
+
+  }
+
+  h2 {
+    font-size: max(2.5vw, 20px);
+    align-self: flex-start;
+    margin-left: max(2.5vw, 20px);
+  }
+
+  code {
+    color: $svg-shade;
+  }
+
+  div {
+
+    margin: 55px;
+    display: flex;
+    gap: 55px;
+
+    button {
+      padding: 15px 25px;
+      background-color: $secondary;
+      font-size: max(2.5vw, 20px);
+      @include hover()
+    }
+  }
+
+}
+
+.student {
+  border: 1px solid $svg-shade;
+  color: $svg-shade;
+
+  svg {
+    path {
+      fill: $svg-shade;
+    }
+  }
+}
+
+.teacher {
+  border: 1px solid #2e79bd;
+  color: #2e79bd;
+
+}

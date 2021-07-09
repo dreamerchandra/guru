@@ -1,0 +1,17 @@
+@import '../../var.scss';
+
+.filter {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30),
+  0 15px 12px rgba(0, 0, 0, 0.22);
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  width: fit-content;
+  padding: 15px;
+  border-radius: 50%;
+  background-color: $secondary;
+  border: 1px solid $svg-shade;
+  svg {
+    fill: $svg-shade;
+  }
+}

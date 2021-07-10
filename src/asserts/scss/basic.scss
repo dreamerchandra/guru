@@ -1,4 +1,4 @@
-@import './var.scss';
+@import '../../var.scss';
 
 body {
   margin: 0;
@@ -33,4 +33,8 @@ a {
 
 :root {
   font-size: 62.5%;
+}
+
+svg {
+  cursor: pointer;
 }

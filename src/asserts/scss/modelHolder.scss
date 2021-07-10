@@ -1,0 +1,90 @@
+@import '../../var.scss';
+
+
+$header-height: max(5.5vw, 55px);
+
+.modelHolder {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 15px;
+  height: 70vh;
+  width: 80vw;
+  overflow: hidden;
+  margin: auto;
+  display: block;
+  background-color: $secondary;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+
+  label {
+    font-size: max(1.5vw, 14px);
+    color: $secondary-t;
+  }
+
+  input {
+    font-size: max(2.0vw, 18px);
+    color: $secondary-t;
+
+    &:not(:valid) {
+      color: red;
+    }
+  }
+
+  .input {
+    font-size: max(2.0vw, 18px);
+    color: $secondary-t;
+  }
+
+  p.Mui-error {
+    font-size: max(1.0vw, 12px);
+  }
+
+  .header {
+    width: 100%;
+    height: $header-height;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: $hover-s;
+
+    h1 {
+      font-size: max(2.0vw, 28px);
+      color: $secondary-t;
+      align-self: center;
+      margin-left: 15px;
+    }
+
+    svg {
+      width: 20px;
+      margin: 25px;
+
+      @media (max-width: 600px) {
+        margin: auto 10px;
+      }
+
+      path {
+        fill: $secondary-t !important;
+      }
+    }
+
+  }
+
+  .body {
+    overflow: auto;
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    flex-direction: column;
+    width: 97%;
+    place-self: center;
+  }
+}
+
+.MuiListItem-root.Mui-selected {
+  background-color: $secondary !important;
+}

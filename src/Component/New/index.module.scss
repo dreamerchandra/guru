@@ -1,0 +1,17 @@
+@import '../../var.scss';
+
+$size: max(3.5vw, 28px);
+
+.add {
+  padding: 5px;
+  border-radius: 50%;
+  background-color: transparent;
+  @include hover();
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    height: max(3.5vw, 28px);
+    width: max(3.5vw, 28px);
+  }
+}

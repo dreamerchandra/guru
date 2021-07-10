@@ -5,9 +5,8 @@ import "firebase/auth";
 import style from "./index.module.scss";
 import { ReactComponent as Student } from "./student.svg";
 import { ReactComponent as Teacher } from "./teacher.svg";
-import { getUserRole, ROLE, updateRole } from "../../js/firebase-auth";
 import { useHistory } from "react-router-dom";
-import UserRole from "../../js/user-role";
+import UserRole, {ROLE} from "../../js/user-role";
 
 export default function Landing() {
   const [user] = useAuthState(firebase.auth());
@@ -44,7 +43,7 @@ export default function Landing() {
         <button
           className={style.student}
           onClick={async () => {
-            await updateRole(ROLE.STUDENT);
+            await UserRole.createRole(ROLE.STUDENT);
             history.push("/student");
           }}
         >
@@ -55,7 +54,7 @@ export default function Landing() {
         <button
           className={style.teacher}
           onClick={async () => {
-            await updateRole(ROLE.TEACHER);
+            await UserRole.createRole(ROLE.TEACHER);
             history.push("/teacher");
           }}
         >

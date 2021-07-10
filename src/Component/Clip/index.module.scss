@@ -1,0 +1,38 @@
+@import '../../var.scss';
+
+.root {
+  display: inline;
+  border: 1px solid $svg-shade;
+  border-radius: 15px;
+  margin: 2.5px;
+
+  .clip {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+    font-size: max(1.5vw, 14px);
+    max-width: 95px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    * {
+      margin: 5px;
+    }
+
+    p {
+      max-width: 55px;
+      margin-right: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    svg {
+      width: 15px;
+
+      path {
+        fill: $svg-shade;
+      }
+    }
+  }
+}

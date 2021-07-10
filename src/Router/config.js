@@ -1,5 +1,6 @@
 import Home from '../Pages/Home'
 import Landing from '../Pages/Landing'
+import Teacher from '../Pages/Teacher'
 
 const config = [
   {
@@ -13,6 +14,11 @@ const config = [
     path: '/landing',
     component: Landing,
     linkName: 'Landing',
+  },
+  {
+    path: '/teacher',
+    component: Teacher,
+    linkName: 'Teacher-Home Page',
   },
 ]
 

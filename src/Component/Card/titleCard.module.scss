@@ -1,0 +1,33 @@
+@import '../../var.scss';
+
+.card {
+  flex-shrink: 0;
+  width: 185px;
+  height: 245px;
+  margin: 5px;
+  background-color: $secondary;
+  color: $secondary-t;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @include hover();
+  overflow: hidden;
+  text-overflow: clip;
+  gap: 10px;
+
+  img {
+    width: 80%;
+    display: block;
+  }
+
+  h6 {
+    word-wrap: break-word;
+    font-size: max(1.5vw, 1.4em);
+    height: 2.4em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    align-self: center;
+    width: 90%;
+  }
+}

@@ -1,0 +1,32 @@
+.cardsHolder {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  grid-gap: 15px;
+  gap: 15px;
+  height: max(100%, 100px);
+
+  .cardHeaderWrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    .cardHeader {
+      font-size: max(3.5vw, 28px);
+    }
+  }
+
+
+  .cards {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

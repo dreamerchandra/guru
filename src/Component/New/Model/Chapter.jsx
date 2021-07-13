@@ -4,26 +4,57 @@ import Input from "../../Input";
 import { ReactComponent as Close } from "../../../asserts/svg/close.svg";
 import InputClip from "../../ClipInput";
 import MultiSelect from "../../MultiSelect";
+import api, { paginate, queryConfig } from "../../../js/api";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { toast } from "react-toastify";
+import Notification from "../../Notification";
+import { chapterPaginate } from "../../../js/api/chapter";
 
 function Chapter({ hideModel }) {
   const [fields, setFields] = useState({
     title: "",
-    titleImg: "",
+    titleImg: null,
     tag: [],
     category: [],
-    folders: "",
+    folders: [],
+  });
+
+  const { data: categoryData = [] } = useQuery(
+    "my.category",
+    api.category.getMine,
+    queryConfig
+  );
+  const { data: folderData = [] } = useQuery(
+    "my.folder",
+    api.folder.getMine,
+    queryConfig
+  );
+
+  const queryClient = useQueryClient();
+
+  const createChapter = useMutation(api.chapter.create, {
+    onSuccess: () => {
+      toast.dark(<Notification showSuccessIcon text="Success" />);
+      hideModel();
+      paginate.chapter.invalidateLastPage();
+      queryClient.invalidateQueries("my.chapter");
+    },
+    onError: (err) => {
+      toast.dark(
+        <Notification
+          showSuccessIcon={false}
+          text={`Failure due to error in ${err.code}`}
+        />
+      );
+    },
   });
 
   const setField = (name) => (val) => {
     setFields((pre) => {
-      let res = val;
-      if (typeof val === "function") {
-        res = val(pre[name]);
-      }
-
+      const newState = typeof val === "function" ? val(pre[name]) : val;
       return {
         ...pre,
-        [name]: res,
+        [name]: newState,
       };
     });
   };
@@ -53,6 +84,7 @@ function Chapter({ hideModel }) {
             type="file"
             value={fields.titleImg}
             setValue={setField("titleImg")}
+            inputProps={{ accept: "image/*" }}
           />
         </div>
         <InputClip
@@ -65,19 +97,26 @@ function Chapter({ hideModel }) {
           label="Category"
           values={fields.category}
           setValue={setField("category")}
-          options={[
-            "Oliver Hansen",
-            "Van Henry",
-            "April Tucker",
-            "Ralph Hubbard",
-            "Omar Alexander",
-            "Carlos Abbott",
-            "Miriam Wagner",
-            "Bradley Wilkerson",
-            "Virginia Andrews",
-            "Kelly Snyder",
-          ]}
+          options={categoryData}
+          keyLabel="id"
+          displayLabel="label"
         />
+        <MultiSelect
+          label="Folder"
+          values={fields.folders}
+          setValue={setField("folders")}
+          options={folderData}
+          keyLabel="id"
+          displayLabel="title"
+        />
+      </div>
+      <div className="footer">
+        <button
+          disabled={createChapter.isLoading}
+          onClick={() => createChapter.mutate(fields)}
+        >
+          Save
+        </button>
       </div>
     </section>
   );

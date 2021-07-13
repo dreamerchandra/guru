@@ -17,13 +17,15 @@
   gap: 10px;
 
   img {
-    width: 80%;
+    width: 145px;
+    height: 145px;
     display: block;
+    object-fit: cover;
   }
 
   h6 {
     word-wrap: break-word;
-    font-size: max(1.5vw, 1.4em);
+    font-size: max(1.25vw, 1.4em);
     height: 2.4em;
     text-overflow: ellipsis;
     overflow: hidden;

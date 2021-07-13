@@ -1,8 +1,221 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if false;
+    match /Category/{itemId} {
+
+      allow read: if isSignedIn();
+
+      // FUNCTIONS
+      function isSignedIn() {
+        return request.auth != null;
+      }
+  
     }
+
+    match /Rating/{itemId}{
+
+      allow read: if isSignedIn();
+
+      allow create: if isValidRating(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        checkKeys();
+
+      allow update: if isValidRating(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        isOwner(resource.data) &&
+        isCalm() &&
+        checkKeys();
+
+      allow delete: if isOwner(resource.data);
+
+      // FUNCTIONS
+      function isSignedIn() {
+        return request.auth != null;
+      }
+  
+      function isOwner(rating) {
+        return request.auth.uid == rating.createdBy;
+      }
+  
+      function isValidRating(rating) {
+        return (
+          // rating.createdBy
+          rating.createdBy is string &&
+          rating.createdBy < '50' &&
+          rating.createdBy != '' &&
+          // rating.value
+          rating.value is number &&
+          rating.value >= 0 &&
+          rating.value <= 5 &&
+          rating.value != '' &&
+          // rating.description
+          rating.description is string &&
+          rating.description < '3' &&
+          // rating.cardId
+          rating.cardId is string &&
+          rating.cardId < '50' &&
+          rating.cardId != '' 
+        );
+      }
+
+      function isCalm() {
+        return ( 
+          request.time > resource.data.lastModifiedAt +
+          duration.value(600, 's')
+        ); 
+      }
+
+      function checkKeys() {
+        let requiredFields = ['createdBy','value','cardId'];
+        let optionalFields = ['description'];
+        let allFields = requiredFields.concat(optionalFields);
+        return request.resource.data.keys().hasAll(requiredFields) &&
+        request.resource.data.keys().hasOnly(allFields)
+      }
+    }
+
+    match /Folder/{itemId}{
+
+      allow read: if isOwner(resource.data) &&
+        isSignedIn();
+
+      allow create: if isValidFolder(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        checkKeys();
+
+      allow update: if isValidFolder(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        isOwner(resource.data) &&
+        isCalm() &&
+        checkKeys();
+
+      allow delete: if isOwner(resource.data);
+
+      // FUNCTIONS
+      function isSignedIn() {
+        return request.auth != null;
+      }
+  
+      function isOwner(folder) {
+        return request.auth.uid == folder.createdBy;
+      }
+  
+      function isValidFolder(folder) {
+        return (
+          // folder.createdBy
+          folder.createdBy is string &&
+          folder.createdBy < '86' &&
+          folder.createdBy != '' &&
+          // folder.createdAt
+          folder.createdAt is timestamp &&
+          folder.createdAt != '' &&
+          // folder.lastModifiedAt
+          folder.lastModifiedAt is timestamp &&
+          folder.lastModifiedAt != '' &&
+          // folder.title
+          folder.title is string &&
+          folder.title < '24' &&
+          folder.title != '' &&
+          // folder.tag
+          folder.tag is list &&
+          folder.tag != '' &&
+          // folder.titleImg
+          folder.titleImg is string &&
+          folder.titleImg < '256' &&
+          // folder.category
+          folder.category is list &&
+          // folder.keywords
+          folder.keywords is list 
+        );
+      }
+
+      function isCalm() {
+        return ( 
+          request.time > resource.data.lastModifiedAt +
+          duration.value(10, 's')
+        ); 
+      }
+
+      function checkKeys() {
+        let requiredFields = ['createdBy','createdAt','lastModifiedAt','title','tag'];
+        let optionalFields = ['titleImg','category','keywords'];
+        let allFields = requiredFields.concat(optionalFields);
+        return request.resource.data.keys().hasAll(requiredFields) &&
+        request.resource.data.keys().hasOnly(allFields)
+      }
+    }
+        match /Chapter/{itemId}{
+
+      allow read: if isOwner(resource.data) &&
+        isSignedIn();
+
+      allow create: if isValidChapter(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        checkKeys();
+
+      allow update: if isValidChapter(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        isOwner(resource.data) &&
+        isCalm() &&
+        checkKeys();
+
+      allow delete: if isOwner(resource.data);
+
+      // FUNCTIONS
+      function isSignedIn() {
+        return request.auth != null;
+      }
+  
+      function isOwner(chapter) {
+        return request.auth.uid == chapter.createdBy;
+      }
+  
+      function isValidChapter(chapter) {
+        return (
+          // chapter.createdBy
+          chapter.createdBy is string &&
+          chapter.createdBy.size() < 86 &&
+          chapter.createdBy != '' &&
+          // chapter.createdAt
+          chapter.createdAt is timestamp &&
+          chapter.createdAt != '' &&
+          // chapter.lastModifiedAt
+          chapter.lastModifiedAt is timestamp &&
+          chapter.lastModifiedAt != '' &&
+          // chapter.title
+          chapter.title is string &&
+          chapter.title.size() >= 4 &&
+          chapter.title.size() <= 50 &&
+          // chapter.tag
+          chapter.tag is list &&
+          chapter.tag != '' &&
+          // chapter.titleImg
+          chapter.titleImg is string &&
+          chapter.titleImg.size() < 200 &&
+          // chapter.category
+          chapter.category is list &&
+          // chapter.folders
+          chapter.folders is list &&
+          // chapter.keywords
+          chapter.keywords is list 
+        );
+      }
+
+      function isCalm() {
+        return ( 
+          request.time > resource.data.lastModifiedAt +
+          duration.value(10, 's')
+        ); 
+      }
+
+      function checkKeys() {
+        let requiredFields = ['createdBy','createdAt','lastModifiedAt','tag'];
+        let optionalFields = ['title','titleImg','category','folders','keywords'];
+        let allFields = requiredFields.concat(optionalFields);
+        return request.resource.data.keys().hasAll(requiredFields) &&
+        request.resource.data.keys().hasOnly(allFields)
+      }
+    }
+
   }
 }

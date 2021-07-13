@@ -5,17 +5,20 @@ import './asserts/scss/all.scss';
 import { ModelProvider } from './Hoc/Model';
 import initializeFirebase from './js/firebase-init';
 import App from './Router';
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 initializeFirebase();
-
+const queryClient = new QueryClient()
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <ModelProvider>
-        <App />
-      </ModelProvider>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <ModelProvider>
+          <App />
+        </ModelProvider>
+      </Router>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

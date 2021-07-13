@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
   menuItem: {
     background: "#313131",
     color: "#ffffff",
-    
   },
 }));
 
@@ -32,18 +31,25 @@ const MenuProps = {
   },
 };
 
-export default function MultiSelect({ options, label, values, setValue }) {
+export default function MultiSelect({
+  options,
+  label,
+  values,
+  setValue,
+  keyLabel,
+  displayLabel,
+}) {
   const classes = useStyles();
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
+  const displayValues = values.map((value) => value[displayLabel]);
+
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel id={label}>
-        {label}
-      </InputLabel>
+      <InputLabel id={label}>{label}</InputLabel>
       <Select
         labelId={label}
         variant="filled"
@@ -51,15 +57,21 @@ export default function MultiSelect({ options, label, values, setValue }) {
         multiple
         value={values}
         onChange={handleChange}
-        input={<Input/>}
-        renderValue={(selected) => selected.join(", ")}
+        input={<Input />}
+        renderValue={(selected) => selected.map((value) => value[displayLabel]).join(', ')}
         MenuProps={MenuProps}
         className="input"
       >
-        {options.map((name) => (
-          <MenuItem key={name} value={name} className={classes.menuItem}>
-            <Checkbox checked={values.indexOf(name) > -1} />
-            <ListItemText primary={name} />
+        {options.map((option) => (
+          <MenuItem
+            key={option[keyLabel]}
+            value={option}
+            className={classes.menuItem}
+          >
+            <Checkbox
+              checked={displayValues.indexOf(option[displayLabel]) !== -1}
+            />
+            <ListItemText primary={option[displayLabel]} />
           </MenuItem>
         ))}
       </Select>

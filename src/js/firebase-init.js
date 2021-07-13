@@ -22,6 +22,7 @@ export default function initializeFirebase () {
     })
     firebase.auth().useEmulator('http://localhost:9099/')
     firebase.functions().useEmulator("localhost", 5001);
+    firebase.storage().useEmulator("localhost", 9199);
   }
   console.log('initalizing app')
 }

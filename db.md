@@ -1,22 +1,27 @@
 ```js
 {
-  category: Array<{label: String, id: UiD}>
+  Category: {
+    <category-id>: {
+      label: <string>,
+    }
+  }
 }
 
 {
-  rating: {
+  Rating: {
     hash<userId,carDid>: {
       cardId: <card-id>,
-      userId: <userId>,
+      createdBy: <userId>,
       value: <integer>,
       description: <textfield>,
+      lastModifiedAt: <timestamp>, 
     }
   }
 }
 
 
 {
-  chapter: {
+  Chapter: {
     <chapter-id>: {
       createdBy: <personId>,
       createdAt: <timestamp>,
@@ -27,10 +32,18 @@
       category: Array<CategoryUiD>,
       folders: Array<folder-id>,
       keywords: UniqueArray<lower(Token(title, tag), category)>
-      cards: {
-        paginate: { // no indexing
-          10: Array<{
-            id: uniqueID,
+      Cards: {
+        <card-id>: { // no indexing
+            title: String,
+            createdBy: <personId>,
+            description: String,
+            type: <question|concept>,
+            imgUrl: url,
+            question: Array<{id: questionId, label: String}>, // for MCQ single entity will be present and for match it will have multiple question
+            options: Array<{id: answerId, label: String}>,
+            answerKey: Array<{questionId: <questionId>, answerId: <answerId>}>
+        },
+        <card-id2>: {
             title: String,
             description: String,
             type: <question|concept>,
@@ -38,17 +51,7 @@
             question: Array<{id: questionId, label: String}>, // for MCQ single entity will be present and for match it will have multiple question
             options: Array<{id: answerId, label: String}>,
             answerKey: Array<{questionId: <questionId>, answerId: <answerId>}>
-          }>,
-          20: Array<{
-            id: uniqueID,
-            title: String,
-            description: String,
-            type: <question|concept>,
-            img: url,
-            question: Array<{id: questionId, label: String}>, // for MCQ single entity will be present and for match it will have multiple question
-            options: Array<{id: answerId, label: String}>,
-            answerKey: Array<{questionId: <questionId>, answerId: <answerId>}>
-          }>
+          }
         }
       }
     }
@@ -57,7 +60,7 @@
 
 
 {
-  folder: {
+  Folder: {
     <folder-id>: {
       createdBy: <personId>,
       createdAt: <timestamp>,
@@ -76,6 +79,22 @@
     <batch-id>: {
       createdBy: <userId>,
       students: Array<{name: string, userId: <uid>, imgUrl: <sting>}>,
+    }
+  }
+}
+```
+
+
+```
+{
+  chapter: {
+    <chapter-id>: {
+      original: img,
+    }
+    card: {
+      card-id: {
+        original: img,
+      }
     }
   }
 }

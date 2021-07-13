@@ -1,0 +1,16 @@
+.notification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  p {
+    display: inline;
+    font-size: 2rem;
+    padding: 5px;
+  }
+}

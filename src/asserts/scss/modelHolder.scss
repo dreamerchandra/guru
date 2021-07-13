@@ -2,6 +2,7 @@
 
 
 $header-height: max(5.5vw, 55px);
+$footer-height: 55px;
 
 .modelHolder {
   position: absolute;
@@ -18,7 +19,10 @@ $header-height: max(5.5vw, 55px);
   background-color: $secondary;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 15px;
+  box-shadow: $hover-l;
+
 
 
   label {
@@ -77,14 +81,43 @@ $header-height: max(5.5vw, 55px);
   .body {
     overflow: auto;
     display: flex;
+    grid-gap: 15px;
     gap: 15px;
     padding: 10px;
     flex-direction: column;
     width: 97%;
     place-self: center;
+    max-height: calc(100% - max(5.5vw, 55px) + 55px);
+    margin: auto;
+  }
+
+  .footer {
+    height: 55px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    place-content: flex-end;
+    align-items: center;
+
+    * {
+      margin: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: 1px solid $svg-shade;
+      background-color: $primary;
+      color: $primary-t;
+      @include hover();
+    }
   }
 }
 
-.MuiListItem-root.Mui-selected {
-  background-color: $secondary !important;
+.MuiListItem-root {
+
+  &.Mui-selected,
+  &:hover {
+    background-color: $secondary !important;
+  }
 }

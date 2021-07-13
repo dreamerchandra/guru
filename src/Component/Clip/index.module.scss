@@ -12,7 +12,7 @@
     justify-items: center;
     justify-content: space-between;
     font-size: max(1.5vw, 14px);
-    max-width: 95px;
+    max-width: 200px;
     padding-left: 5px;
     padding-right: 5px;
 
@@ -21,7 +21,7 @@
     }
 
     p {
-      max-width: 55px;
+      max-width: 20ch;
       margin-right: 3px;
       overflow: hidden;
       text-overflow: ellipsis;

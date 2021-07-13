@@ -6,6 +6,9 @@ import style from './index.module.scss'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import Model from './New/Model'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function App ({ children }) {
 
@@ -17,10 +20,24 @@ export default function App ({ children }) {
   }, [user])
 
   return (
-    <div className={style.root}>
-      <Header />
-      <Model />
-      <div className={style.body}>{children}</div>
-    </div>
+    <>
+      <div className={style.root}>
+        <Header />
+        <Model />
+        <ReactQueryDevtools initialIsOpen={false} />
+        <div className={style.body}>{children}</div>
+      </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   )
 }

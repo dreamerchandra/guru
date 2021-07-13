@@ -8,7 +8,20 @@ export default function Input({
   value,
   setValue,
   errorMsg,
+  inputProps = {}
 }) {
+  const getValueOnChange = (e) => {
+    const { files, value } = e.target;
+    if (type === "file") {
+      return { files, label: value };
+    }
+    return value;
+  };
+
+  const getDisplayValue = () => {
+    return type === "file" ? value?.label ?? '' : value;
+  };
+
   return (
     <TextField
       style={{ width: "100%" }}
@@ -18,8 +31,9 @@ export default function Input({
       helperText={errorMsg}
       variant="filled"
       error={error}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
+      value={getDisplayValue()}
+      onChange={(e) => setValue(getValueOnChange(e))}
+      inputProps={inputProps}
     />
   );
 }

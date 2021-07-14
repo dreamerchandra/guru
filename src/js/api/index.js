@@ -1,7 +1,8 @@
 import { CACHE_TIME } from "../firebase-helper";
+import batchApi from "./batch";
 import categoryApi from "./category";
 import chapterApi, { chapterPaginate } from "./chapter";
-import folderApi from "./folder";
+import folderApi, { folderPaginate } from "./folder";
 
 const responseWrapper = {
   success: (data) => ({
@@ -19,6 +20,7 @@ export function apiFactory (http, baseUrl) {
     category: categoryApi(http, baseUrl, responseWrapper),
     folder: folderApi(http, baseUrl, responseWrapper),
     chapter: chapterApi(http, baseUrl, responseWrapper),
+    batch: batchApi(http, baseUrl, responseWrapper),
   };
 }
 
@@ -33,5 +35,6 @@ export const queryConfig = {
 }
 
 export const paginate = {
-  chapter: chapterPaginate
+  chapter: chapterPaginate,
+  folder: folderPaginate
 }

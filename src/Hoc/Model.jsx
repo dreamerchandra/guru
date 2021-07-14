@@ -4,6 +4,8 @@ const ModelContext = createContext();
 
 export const MODEL = {
   CHAPTER: "chapter",
+  FOLDER: "folder",
+  BATCHES: "batches",
   NA: "na",
 };
 

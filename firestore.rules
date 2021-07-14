@@ -104,7 +104,7 @@ service cloud.firestore {
         return (
           // folder.createdBy
           folder.createdBy is string &&
-          folder.createdBy < '86' &&
+          folder.createdBy.size() < 86 &&
           folder.createdBy != '' &&
           // folder.createdAt
           folder.createdAt is timestamp &&
@@ -114,18 +114,8 @@ service cloud.firestore {
           folder.lastModifiedAt != '' &&
           // folder.title
           folder.title is string &&
-          folder.title < '24' &&
-          folder.title != '' &&
-          // folder.tag
-          folder.tag is list &&
-          folder.tag != '' &&
-          // folder.titleImg
-          folder.titleImg is string &&
-          folder.titleImg < '256' &&
-          // folder.category
-          folder.category is list &&
-          // folder.keywords
-          folder.keywords is list 
+          folder.title.size() < 24 &&
+          folder.title.size() > 3
         );
       }
 
@@ -137,8 +127,8 @@ service cloud.firestore {
       }
 
       function checkKeys() {
-        let requiredFields = ['createdBy','createdAt','lastModifiedAt','title','tag'];
-        let optionalFields = ['titleImg','category','keywords'];
+        let requiredFields = ['createdBy','createdAt','lastModifiedAt','title'];
+        let optionalFields = [];
         let allFields = requiredFields.concat(optionalFields);
         return request.resource.data.keys().hasAll(requiredFields) &&
         request.resource.data.keys().hasOnly(allFields)
@@ -217,5 +207,15 @@ service cloud.firestore {
       }
     }
 
+    match /Batches/{userId}{
+
+      allow read: if isOwner(userId);
+
+      // FUNCTIONS
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+  
+    }
   }
 }

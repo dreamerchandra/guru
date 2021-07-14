@@ -8,7 +8,6 @@ import api, { paginate, queryConfig } from "../../../js/api";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import Notification from "../../Notification";
-import { chapterPaginate } from "../../../js/api/chapter";
 
 function Chapter({ hideModel }) {
   const [fields, setFields] = useState({

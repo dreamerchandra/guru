@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/functions'
+import { functionRef } from './firebase-helper'
 
 export const ROLE = {
   ADMIN: 'admin',
@@ -41,7 +42,7 @@ export default class UserRole {
 
   static createRole = async (role) => {
     if (!Object.values(ROLE).includes(role)) throw new Error('undefined role')
-    const { data: { code } } = await firebase.functions().httpsCallable('updateRole')({ role });
+    const { data: { code } } = await functionRef().updateRole({ role });
     console.log('status code for updating role is ', code);
     if (code !== 200) return;
     return this.updateRole(true);

@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
+import 'firebase/functions'
 
 export const ref = () => {
   const db = firebase.firestore()
@@ -8,6 +9,7 @@ export const ref = () => {
     category: db.collection('Category'),
     folder: db.collection('Folder'),
     chapter: db.collection('Chapter'),
+    batches: db.collection('Batches'),
     db,
   }
 }
@@ -17,7 +19,15 @@ export const storageRef = (fileName) => {
   return {
     folder: storage.ref().child(`folder/${fileName}`),
     chapter: storage.ref().child(`chapter/${fileName}`),
+    userImg: storage.ref().child(`user/${fileName}`),
     storage,
+  }
+}
+
+export const functionRef = () => {
+  return {
+    createBatch: firebase.functions().httpsCallable('createBatch'),
+    updateRole: firebase.functions().httpsCallable('updateRole')
   }
 }
 
@@ -40,6 +50,7 @@ export const getDataFromQuerySnapShot = (idKey, documentData) => {
   })
   return returnResult
 }
+
 
 
 export function getServerTimeStamp() {

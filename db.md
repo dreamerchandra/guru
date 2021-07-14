@@ -28,6 +28,7 @@
       lastModifiedAt: <timestamp>,
       title: <string>,
       tag: Array<string>,
+      batches: Array<student>,
       titleImg: <url>,
       category: Array<CategoryUiD>,
       folders: Array<folder-id>,
@@ -75,16 +76,15 @@
 }
 
 {
-  batches: { // just for display
-    <batch-id>: {
-      createdBy: <userId>,
-      students: Array<{name: string, userId: <uid>, imgUrl: <sting>}>,
+  Batches: { // just for display
+    <userId>: {
+      students: Array<{displayName: string, id: <uid>, imgUrl: <sting>}>,
     }
   }
 }
 ```
 
-
+Storage bucket
 ```
 {
   chapter: {
@@ -95,6 +95,11 @@
       card-id: {
         original: img,
       }
+    }
+  }
+  user: {
+    <user-id>: {
+      original: img,
     }
   }
 }

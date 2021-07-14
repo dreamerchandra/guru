@@ -23,15 +23,16 @@ export const ModelProvider = ({ children }) => {
   const [model, setModel] = useState({
     show: false,
     type: MODEL.NA,
+    info: {},
   });
 
-  const showModel = useCallback((type) => {
+  const showModel = useCallback((type, info = {}) => {
     checkModel(type);
-    setModel({ show: true, type });
+    setModel({ show: true, type, info });
   }, []);
 
   const hideModel = useCallback(() => {
-    setModel({ show: false, type: MODEL.NA });
+    setModel({ show: false, type: MODEL.NA, info: {} });
   }, []);
 
   return (

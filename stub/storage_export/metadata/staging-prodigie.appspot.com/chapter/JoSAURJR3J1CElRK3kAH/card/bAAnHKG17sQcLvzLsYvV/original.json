@@ -1,0 +1,19 @@
+{
+  "name": "chapter/JoSAURJR3J1CElRK3kAH/card/bAAnHKG17sQcLvzLsYvV/original",
+  "bucket": "staging-prodigie.appspot.com",
+  "contentType": "image/png",
+  "metageneration": 1,
+  "generation": 1626289802469,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "bd20b568-a6a6-453c-abfd-0ddd1baa2af3"
+  ],
+  "timeCreated": "2021-07-14T19:10:02.468Z",
+  "updated": "2021-07-14T19:10:02.469Z",
+  "size": 85855,
+  "md5Hash": "GffaeILyTI2xkjWpMLFcCA==",
+  "crc32c": "647653425"
+}

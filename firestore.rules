@@ -248,16 +248,6 @@ service cloud.firestore {
             card.createdBy.size() < 50 &&
             card.createdBy != '' &&
 
-            // card.title
-            card.title is string &&
-            card.title.size() < 50 &&
-            card.title.size() > 4 &&
-            
-            // card.description
-            card.description is string &&
-            card.description.size() < 3 &&
-            card.description.size() > 1000 &&
-
             // card.type
             card.type is string &&
             card.type == 'question' ||
@@ -278,11 +268,21 @@ service cloud.firestore {
         }
 
         function checkKeys() {
-          let requiredFields = ['title','lastModifiedAt','createdBy', 'type'];
-          let optionalFields = ['description', 'imgUrl', 'question', 'options', 'answerKey'];
-          let allFields = requiredFields.concat(optionalFields);
-          return request.resource.data.keys().hasAll(requiredFields) &&
-          request.resource.data.keys().hasOnly(allFields)
+          let commonFields = ['lastModifiedAt', 'createdBy', 'type'];
+          let conceptFields = ['title', 'description'].concat(commonFields);
+          let questionFields = ['question', 'options', 'answerKey'].concat(commonFields);
+          return (
+              (
+                request.resource.data.type == 'question' &&
+                request.resource.data.keys().hasAll(questionFields) &&
+                request.resource.data.keys().hasOnly(questionFields.concat(['imgUrl']))
+              ) || 
+              (
+                request.resource.data.type == 'concept' && 
+                request.resource.data.keys().hasAll(conceptFields) &&
+                request.resource.data.keys().hasOnly(conceptFields.concat(['imgUrl']))
+              )
+            )
         }
       }
   }

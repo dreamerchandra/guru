@@ -61,7 +61,7 @@ export function getServerTimeStamp () {
 }
 
 
-export const CACHE_TIME = 5 * 30 * 1000;
+export const CACHE_TIME = 5 * 60 * 1000;
 
 
 export async function getStorageUrl (path) {

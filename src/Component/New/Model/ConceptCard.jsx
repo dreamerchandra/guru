@@ -7,7 +7,7 @@ import api, { paginate } from "../../../js/api";
 import Input from "../../Input";
 import Notification from "../../Notification";
 
-function ConceptCard({ hideModel, showModel }) {
+function ConceptCard({ hideModel, showModel, model: { info: modelInfo } }) {
   const [fields, setFields] = useState({
     title: "",
     imgUrl: null,
@@ -20,7 +20,7 @@ function ConceptCard({ hideModel, showModel }) {
     onSuccess: () => {
       toast.dark(<Notification showSuccessIcon text="Success" />);
       hideModel();
-      // queryClient.invalidateQueries("my.chapter");
+      queryClient.invalidateQueries(`${modelInfo.chapterId}.cards`);
     },
     onError: (err) => {
       toast.dark(
@@ -79,7 +79,7 @@ function ConceptCard({ hideModel, showModel }) {
         <button
           disabled={createChapter.isLoading}
           onClick={() =>
-            createChapter.mutate({ chapterId: "JoSAURJR3J1CElRK3kAH", fields })
+            createChapter.mutate({ chapterId: modelInfo.chapterId, fields })
           }
         >
           Save

@@ -25,11 +25,11 @@ export default function Chapter() {
 
   const onAdd = () => {
     if (isQuestion) {
-      showModel(MODEL.QUESTION_CARD)
+      showModel(MODEL.QUESTION_CARD, { chapterId });
     } else {
-      showModel(MODEL.CONCEPT_CARD);
+      showModel(MODEL.CONCEPT_CARD, { chapterId });
     }
-  }
+  };
 
   return (
     <section style={{ marginTop: "35px" }}>
@@ -43,7 +43,7 @@ export default function Chapter() {
       </div>
       <div className="cardsHolder">
         <div className="cardHeaderWrapper">
-          <h1 className="cardHeader">Chapter</h1>
+          <h1 className="cardHeader">{isQuestion ? "Questions" : "Concept"}</h1>
           <New onClick={onAdd} />
         </div>
         <div className="cards fullPage">

@@ -41,17 +41,13 @@
             description: String,
             type: <question|concept>,
             imgUrl: url,
-            question: Array<{id: questionId, label: String}>, // for MCQ single entity will be present and for match it will have multiple question
-            options: Array<{id: answerId, label: String}>,
-            answerKey: Array<{questionId: <questionId>, answerId: <answerId>}>
         },
         <card-id2>: {
-            title: String,
             lastModifiedAt: <timestamp>,
             createdBy: <personId>,
             description: String,
             type: <question|concept>,
-            img: url,
+            imgUrl: url,
             question: Array<{id: questionId, label: String}>, // for MCQ single entity will be present and for match it will have multiple question
             options: Array<{id: answerId, label: String}>,
             answerKey: Array<{questionId: <questionId>, answerId: <answerId>}>

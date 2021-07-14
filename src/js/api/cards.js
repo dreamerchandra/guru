@@ -26,6 +26,16 @@ const checkConceptData = (data) => {
   return true;
 }
 
+
+const checkMcq = (fields) => {
+  if (!fields.question) return "Question";
+  if (!Array.isArray(fields.options) || fields.options.length > 2)
+    return "Option";
+  if (!fields.answerKey?.[0]?.answerId ?? null) return "Answer";
+  return true;
+
+}
+
 export default function cardsApi (http, baseUrl, responseWrapper) {
   return {
 
@@ -50,6 +60,28 @@ export default function cardsApi (http, baseUrl, responseWrapper) {
       const newDoc = ref(chapterId).cards.doc();
 
       const { fullPath, task } = await uploadFile(newDoc.id, chapterId, fields.imgUrl.files[0]);
+      const uploadPromise = new Defer()
+      task.then(uploadPromise.resolve);
+
+      return Promise.all([
+        newDoc.set({ ...data, imgUrl: fullPath }),
+        uploadPromise
+      ]);
+    },
+
+    createMcq: async ({ chapterId, fields }) => {
+      const data = {
+        ...fields,
+        imgUrl: '',
+        createdBy: getCurrentUser(),
+        lastModifiedAt: getServerTimeStamp(),
+        type: 'question'
+      }
+      checkMcq(data);
+
+      const newDoc = ref(chapterId).cards.doc();
+
+      const { fullPath = '', task } = fields.imgUrl ? await uploadFile(newDoc.id, chapterId, fields.imgUrl.files[0]) : { task: Promise.resolve() };
       const uploadPromise = new Defer()
       task.then(uploadPromise.resolve);
 

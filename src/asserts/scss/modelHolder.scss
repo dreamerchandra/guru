@@ -5,13 +5,15 @@ $header-height: max(5.5vw, 55px);
 $footer-height: 55px;
 
 .modelHolder {
+  z-index: 99;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   top: 15px;
-  height: 70vh;
+  max-height: 70vh;
+  height: fit-content;
   width: 80vw;
   overflow: hidden;
   margin: auto;
@@ -61,6 +63,20 @@ $footer-height: 55px;
       color: $secondary-t;
       align-self: center;
       margin-left: 15px;
+    }
+
+    button {
+      font-size: max(2.0vw, 28px);
+      color: #ffffff;
+      align-self: center;
+      margin-left: 15px;
+      background: transparent;
+      text-decoration: underline;
+      color: $svg-shade;
+      border-radius: 15px;
+      padding: 5px;
+      margin: 0px;
+      cursor: pointer;
     }
 
     svg {

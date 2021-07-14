@@ -35,8 +35,9 @@
       keywords: UniqueArray<lower(Token(title, tag), category)>
       Cards: {
         <card-id>: { // no indexing
-            title: String,
             createdBy: <personId>,
+            title: String,
+            lastModifiedAt: <timestamp>,
             description: String,
             type: <question|concept>,
             imgUrl: url,
@@ -46,6 +47,8 @@
         },
         <card-id2>: {
             title: String,
+            lastModifiedAt: <timestamp>,
+            createdBy: <personId>,
             description: String,
             type: <question|concept>,
             img: url,

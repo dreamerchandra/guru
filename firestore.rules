@@ -217,5 +217,73 @@ service cloud.firestore {
       }
   
     }
+
+    match /Chapter/{id}/Cards/{itemId}{
+        allow read: if isSignedIn();
+
+        allow create: if isValidCard(request.resource.data) &&
+          isOwner(request.resource.data) &&
+          checkKeys();
+        
+        allow update: if isValidCard(request.resource.data) &&
+          isOwner(request.resource.data) &&
+          isOwner(resource.data) &&
+          isCalm() &&
+          checkKeys();
+        
+        allow delete: if isOwner(resource.data);
+
+        function isSignedIn() {
+          return request.auth != null;
+        }
+    
+        function isOwner(rating) {
+          return request.auth.uid == rating.createdBy;
+        }
+    
+        function isValidCard(card) {
+          return (
+            // card.createdBy
+            card.createdBy is string &&
+            card.createdBy.size() < 50 &&
+            card.createdBy != '' &&
+
+            // card.title
+            card.title is string &&
+            card.title.size() < 50 &&
+            card.title.size() > 4 &&
+            
+            // card.description
+            card.description is string &&
+            card.description.size() < 3 &&
+            card.description.size() > 1000 &&
+
+            // card.type
+            card.type is string &&
+            card.type == 'question' ||
+            card.type == 'concept' &&
+
+            // card.imgUrl
+            card.imgUrl is string &&
+            card.imgUrl.size() < 1024 
+
+          )
+        }
+
+        function isCalm() {
+          return ( 
+            request.time > resource.data.lastModifiedAt +
+            duration.value(600, 's')
+          ); 
+        }
+
+        function checkKeys() {
+          let requiredFields = ['title','lastModifiedAt','createdBy', 'type'];
+          let optionalFields = ['description', 'imgUrl', 'question', 'options', 'answerKey'];
+          let allFields = requiredFields.concat(optionalFields);
+          return request.resource.data.keys().hasAll(requiredFields) &&
+          request.resource.data.keys().hasOnly(allFields)
+        }
+      }
   }
 }

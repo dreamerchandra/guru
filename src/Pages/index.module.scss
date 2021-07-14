@@ -1,0 +1,12 @@
+.toggleSwitch {
+  position: absolute;
+  top: 80px;
+  right: 159px;
+}
+
+@media (max-width: 600px) {
+  .toggleSwitch {
+    position: absolute;
+    right: 120px;
+  }
+}

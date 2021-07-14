@@ -6,6 +6,8 @@ export const MODEL = {
   CHAPTER: "chapter",
   FOLDER: "folder",
   BATCHES: "batches",
+  CONCEPT_CARD: "conceptCards",
+  QUESTION_CARD: "questionCards",
   NA: "na",
 };
 
@@ -48,12 +50,19 @@ export const withModelListener = (Component, type) => {
   checkModel(type);
 
   const ModelPopper = (props) => {
-    const { hideModel, model } = useModel();
+    const { hideModel, model, showModel } = useModel();
 
     if (!model.show) return null;
 
     if (model.type === type) {
-      return <Component {...props} hideModel={hideModel} />;
+      return (
+        <Component
+          {...props}
+          hideModel={hideModel}
+          showModel={showModel}
+          model={model}
+        />
+      );
     }
 
     return null;

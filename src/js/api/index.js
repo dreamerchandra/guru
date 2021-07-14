@@ -1,5 +1,6 @@
 import { CACHE_TIME } from "../firebase-helper";
 import batchApi from "./batch";
+import cardsApi from "./cards";
 import categoryApi from "./category";
 import chapterApi, { chapterPaginate } from "./chapter";
 import folderApi, { folderPaginate } from "./folder";
@@ -20,6 +21,7 @@ export function apiFactory (http, baseUrl) {
     category: categoryApi(http, baseUrl, responseWrapper),
     folder: folderApi(http, baseUrl, responseWrapper),
     chapter: chapterApi(http, baseUrl, responseWrapper),
+    cards: cardsApi(http, baseUrl, responseWrapper),
     batch: batchApi(http, baseUrl, responseWrapper),
   };
 }

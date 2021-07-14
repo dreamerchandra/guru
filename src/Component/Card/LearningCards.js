@@ -1,16 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './index.scss'
 
-export default function LearningCards () {
+export default function LearningCards ({
+  img = '',
+  label = '',
+  description = '',
+}) {
 
+  const [flip, setFlip] = useState(false);
   return (
-    <div class="flip">
-      <div class="front" style={{"background-image": "url(https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)"}}>
-        <h1 class="text-shadow">MOUNTAIN</h1>
+    <div className={`flip ${flip && 'flip-horizontal'}`} onClick={() => setFlip(!flip)}>
+      <div className="front">
+        <img src={img} alt={label} />
+        <h1 className="text-shadow">{label.toUpperCase()}</h1>
       </div>
-      <div class="back">
-        <h2>Angular</h2>
-        <p>Good tools make application development quicker and easier to maintain than if you did everything by hand..</p>
+      <div className="back">
+        <h2>{label}</h2>
+        <p>{description}</p>
       </div>
     </div>
   )

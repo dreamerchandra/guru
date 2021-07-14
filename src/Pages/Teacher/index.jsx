@@ -48,6 +48,9 @@ export default function Teacher() {
               key={chapter.id}
               img={chapter.titleImg}
               label={chapter.title}
+              to={{
+                pathname: `/chapter/${chapter.id}`,
+              }}
             />
           ))}
         </div>

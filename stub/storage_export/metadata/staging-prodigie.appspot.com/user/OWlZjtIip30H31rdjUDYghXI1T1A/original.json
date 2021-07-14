@@ -1,0 +1,19 @@
+{
+  "name": "user/OWlZjtIip30H31rdjUDYghXI1T1A/original",
+  "bucket": "staging-prodigie.appspot.com",
+  "contentType": "application/octet-stream",
+  "metageneration": 1,
+  "generation": 1626259655591,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "b1651d1b-1a7b-4441-aaaf-b9438c464c33"
+  ],
+  "timeCreated": "2021-07-14T10:47:35.590Z",
+  "updated": "2021-07-14T10:47:35.606Z",
+  "size": 3326889,
+  "md5Hash": "LzVfk7iqp0gR2qTs3kHVZw==",
+  "crc32c": "3093772308"
+}

@@ -1,7 +1,7 @@
+import 'firebase/functions';
+import studentIcon from "../../asserts/svg/student.svg";
 import { getCurrentUser } from '../firebase-auth';
-import { functionRef, getDataFromQuerySnapShot, getServerTimeStamp, getStorageUrl, ref, storageRef } from "../firebase-helper";
-import firebase from 'firebase/app';
-import 'firebase/functions'
+import { functionRef, getStorageUrl, ref, storageRef } from "../firebase-helper";
 
 const addImgUrlToStudent = async (student) => {
   try {
@@ -12,8 +12,12 @@ const addImgUrlToStudent = async (student) => {
       ...student,
       imgUrl
     }
-  }catch(err) {
-    return student
+  } catch (err) {
+    return {
+      ...student,
+      imgUrl: studentIcon
+
+    }
   }
 }
 

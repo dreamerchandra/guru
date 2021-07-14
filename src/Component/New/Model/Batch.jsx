@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { MODEL, withModelListener } from "../../../Hoc/Model";
-import Input from "../../Input";
-import { ReactComponent as Close } from "../../../asserts/svg/close.svg";
-import InputClip from "../../ClipInput";
-import MultiSelect from "../../MultiSelect";
-import api, { paginate, queryConfig } from "../../../js/api";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
+import { ReactComponent as Close } from "../../../asserts/svg/close.svg";
+import { MODEL, withModelListener } from "../../../Hoc/Model";
+import api from "../../../js/api";
+import InputClip from "../../ClipInput";
 import Notification from "../../Notification";
 
 function Batch({ hideModel }) {

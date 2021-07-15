@@ -24,7 +24,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "db:backup": "firebase emulators:export ./stub "
+    "db:backup": "firebase emulators:export ./stub ",
+    "deploy:web": "yarn build && firebase deploy --only hosting",
+    "deploy": "yarn build && firebase deploy"
   },
   "eslintConfig": {
     "extends": [

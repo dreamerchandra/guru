@@ -8,7 +8,13 @@ import App from './Router';
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 initializeFirebase();
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      onError: console.log
+    }
+  }
+})
 
 ReactDOM.render(
   <React.StrictMode>

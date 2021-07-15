@@ -115,7 +115,7 @@ service cloud.firestore {
           // folder.title
           folder.title is string &&
           folder.title.size() < 24 &&
-          folder.title.size() > 3
+          folder.title.size() > 2
         );
       }
 

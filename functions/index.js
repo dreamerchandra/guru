@@ -16,6 +16,8 @@ admin.firestore().settings({ ignoreUndefinedProperties: true })
 
 const ref = {
   batch: admin.firestore().collection('Batches'),
+  chapter: admin.firestore().collection('Chapter'),
+  folder: admin.firestore().collection('Folder'),
 }
 
 const withAuth = (cb) => {
@@ -107,3 +109,23 @@ exports.createBatch = functions.https.onCall(withAuth(async (data, context) => {
     return { code: 200 };
   });
 }));
+
+
+// exports.forChapterIndex = functions.https.onCall(async (data, context) => {
+//   try {
+//     const uid = context.auth.uid;
+//     return await ref.chapter.where('createdBy', '==', uid).orderBy('lastModifiedAt', 'desc').limit(20).get();
+//   } catch (err) {
+//     functions.logger.log("err to create index", err);
+//   }
+// });
+
+
+// exports.forFolderIndex = functions.https.onCall(async (data, context) => {
+//   try {
+//     const uid = context.auth.uid;
+//     return await ref.folder.where('createdBy', '==', uid).orderBy('lastModifiedAt', 'desc').limit(20).get();
+//   } catch (err) {
+//     functions.logger.log("err to create index", err);
+//   }
+// });

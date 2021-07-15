@@ -54,7 +54,7 @@ export default function Presentation({ cards, fetchMore, Component, isMore }) {
       </div>
 
       <div className={style.miniBarWrapper}>
-        {cards.map((card) => (
+        {cards.map((card, idx) => (
           <div
             className={`
             ${style.miniBar}
@@ -62,7 +62,8 @@ export default function Presentation({ cards, fetchMore, Component, isMore }) {
             onClick={() => setCurrentId(card.id)}
             key={card.id}
           >
-            <img src={card.imgUrl} alt="Mini Selection" />
+            {card.imgUrl && <img src={card.imgUrl} alt="Mini Selection" />}
+            {!card.imgUrl && idx + 1}
           </div>
         ))}
       </div>

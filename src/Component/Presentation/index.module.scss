@@ -49,12 +49,19 @@ $main-margin: 15px;
       border: 1px solid $secondary;
       @include hover();
       cursor: pointer;
+      background-color: white;
+      font-size: 20px;
+      color: black;
+      display: grid;
+      place-content: center;
 
       &.active {
         box-shadow: $hover-l;
         width: 115px;
         height: 115px;
         border: 2px solid $svg-shade;
+        font-size: 24px;
+        color: $svg-shade;
       }
 
       img {

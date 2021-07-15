@@ -7,6 +7,8 @@ import { MODEL, useModel } from "../../Hoc/Model";
 import { LearningCards } from "../../Component/Card";
 import Toggle from "../../Component/Toggle";
 import style from "../index.module.scss";
+import QuestionCard from "../../Component/Question";
+import Presentation from "../../Component/Presentation";
 
 export default function Chapter() {
   const { chapterId } = useParams();
@@ -47,27 +49,14 @@ export default function Chapter() {
           <New onClick={onAdd} />
         </div>
         <div className="cards fullPage">
-          {isQuestion
-            ? cardData
-                .filter(filterByQuestion)
-                .map((card) => (
-                  <LearningCards
-                    key={card.id}
-                    img={card.imgUrl}
-                    label={card.title}
-                    description={card.description}
-                  />
-                ))
-            : cardData
-                .filter(filterByConcept)
-                .map((card) => (
-                  <LearningCards
-                    key={card.id}
-                    img={card.imgUrl}
-                    label={card.title}
-                    description={card.description}
-                  />
-                ))}
+          <Presentation
+            Component={isQuestion ? QuestionCard : LearningCards}
+            cards={cardData.filter(
+              isQuestion ? filterByQuestion : filterByConcept
+            )}
+            fetchMore={() => {}}
+            isMore={false}
+          />
         </div>
       </div>
     </section>

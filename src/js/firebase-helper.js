@@ -68,7 +68,8 @@ export async function getStorageUrl (path) {
   return firebase.storage().ref(path).getDownloadURL()
 }
 
-export const convertImgToDownloadPath = (imgKey = 'titleImg') => async (data, ) => {
+export const convertImgToDownloadPath = (imgKey = 'titleImg') => async (data,) => {
+  if (!data[imgKey]) return data;
   const titleImg = isValidUrl(data[imgKey]) ? data[imgKey] : await getStorageUrl(data[imgKey])
   return { ...data, [imgKey]: titleImg }
 }

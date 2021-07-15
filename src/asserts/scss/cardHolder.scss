@@ -35,7 +35,14 @@
       flex-wrap: wrap;
       margin: auto;
       width: 90vw;
-      height: 75vh;
+      height: 65vh;
+      overflow: auto;
+      justify-content: space-around;
+      align-items: safe center;
+
+      @media (max-width: 600px) {
+        height: 75vh;
+      }
     }
   }
 }

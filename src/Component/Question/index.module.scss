@@ -13,7 +13,11 @@
   padding: 15px;
 
   img {
-    width: 40%;
+    width: 35%;
+
+    @media (max-width: 600px) {
+      width: 70%;
+    }
   }
 
   h2 {
@@ -23,35 +27,66 @@
     max-height: 200px;
     overflow: auto;
     text-align: center;
+
+    &.shrink {
+      font-size: max(1.75vw, 14px);
+    }
   }
 
   .choiceWrapper {
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 25px;
+    place-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
 
     .choice {
       background: $secondary;
       color: $secondary-t;
       border-radius: 15px;
       display: inline-block;
-      height: 55px;
-      width: 70vw;
+      padding: 15px 25px;
+      height: fit-content;
+      width: fit-content;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-      display: grid;
-      place-content: center;
 
-      h6 {
-        font-size: max(1.5vw, 18px);
+      font-size: max(1.25vw, 14px);
+
+      &.correct {
+        font-size: max(1.35vw, 18px);
+        color: green;
+        box-shadow: $hover-m;
       }
 
-
-      &:hover {
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      &.wrong {
+        font-size: max(1.35vw, 18px);
+        box-shadow: $hover-m;
+        color: red;
       }
     }
+
+    &.shrink {
+      grid-template-columns: repeat(2, 1fr);
+
+      .choice {
+        width: 168px;
+        font-size: max(0.5vw, 10px);
+
+        &.correct {
+          font-size: max(0.6vw, 14px);
+        }
+
+        &.wrong {
+          font-size: max(0.6vw, 14px);
+        }
+      }
+    }
+
+
   }
+
+
 
 }

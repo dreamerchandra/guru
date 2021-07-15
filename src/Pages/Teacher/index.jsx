@@ -33,7 +33,14 @@ export default function Teacher() {
         </div>
         <div className="cards">
           {folderData.map((folder) => (
-            <Card key={folder.id} img={folderIcon} label={folder.title} />
+            <Card
+              key={folder.id}
+              img={folderIcon}
+              label={folder.title}
+              to={{
+                pathname: `/folder/${folder.id}`,
+              }}
+            />
           ))}
         </div>
       </div>

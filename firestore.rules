@@ -134,10 +134,10 @@ service cloud.firestore {
         request.resource.data.keys().hasOnly(allFields)
       }
     }
-        match /Chapter/{itemId}{
+    match /Chapter/{itemId}{
 
-      allow read: if isOwner(resource.data) &&
-        isSignedIn();
+      allow read: if isSignedIn() && (isShared(resource.data) || isOwner(resource.data))
+        
 
       allow create: if isValidChapter(request.resource.data) &&
         isOwner(request.resource.data) &&
@@ -152,6 +152,12 @@ service cloud.firestore {
       allow delete: if isOwner(resource.data);
 
       // FUNCTIONS
+
+      function isShared(chapter) {
+        //FIXME: it should be allowed to only users added as batch
+        return true;
+        // return chapter.batches.hasAny(request.auth.uid);
+      }
       function isSignedIn() {
         return request.auth != null;
       }

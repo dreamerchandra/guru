@@ -1,4 +1,5 @@
 import Chapter from '../Pages/Chapter'
+import Folder from '../Pages/Folder'
 import Home from '../Pages/Home'
 import Landing from '../Pages/Landing'
 import Teacher from '../Pages/Teacher'
@@ -25,6 +26,11 @@ const config = [
     path: '/chapter/:chapterId',
     component: Chapter,
     linkName: 'Chapter',
+  },
+  {
+    path: '/folder/:folderId',
+    component: Folder,
+    linkName: 'Folder',
   },
 ]
 

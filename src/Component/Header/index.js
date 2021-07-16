@@ -22,7 +22,7 @@ export default function Header () {
     }
     history.push(`/search/${val}`)
 
-  }, [val, history])
+  }, [val, history, pathBeforeSearch])
 
   return (
     <header className={style.header}>

@@ -227,71 +227,95 @@ service cloud.firestore {
     }
 
     match /Chapter/{id}/Cards/{itemId}{
-        allow read: if isSignedIn();
+      allow read: if isSignedIn();
 
-        allow create: if isValidCard(request.resource.data) &&
-          isOwner(request.resource.data) &&
-          checkKeys();
-        
-        allow update: if isValidCard(request.resource.data) &&
-          isOwner(request.resource.data) &&
-          isOwner(resource.data) &&
-          isCalm() &&
-          checkKeys();
-        
-        allow delete: if isOwner(resource.data);
+      allow create: if isValidCard(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        checkKeys();
+      
+      allow update: if isValidCard(request.resource.data) &&
+        isOwner(request.resource.data) &&
+        isOwner(resource.data) &&
+        isCalm() &&
+        checkKeys();
+      
+      allow delete: if isOwner(resource.data);
 
-        function isSignedIn() {
-          return request.auth != null;
-        }
-    
-        function isOwner(rating) {
-          return request.auth.uid == rating.createdBy;
-        }
-    
-        function isValidCard(card) {
-          return (
-            // card.createdBy
-            card.createdBy is string &&
-            card.createdBy.size() < 50 &&
-            card.createdBy != '' &&
-
-            // card.type
-            card.type is string &&
-            card.type == 'question' ||
-            card.type == 'concept' &&
-
-            // card.imgUrl
-            card.imgUrl is string &&
-            card.imgUrl.size() < 1024 
-
-          )
-        }
-
-        function isCalm() {
-          return ( 
-            request.time > resource.data.lastModifiedAt +
-            duration.value(600, 's')
-          ); 
-        }
-
-        function checkKeys() {
-          let commonFields = ['lastModifiedAt', 'createdBy', 'type'];
-          let conceptFields = ['title', 'description'].concat(commonFields);
-          let questionFields = ['question', 'options', 'answerKey'].concat(commonFields);
-          return (
-              (
-                request.resource.data.type == 'question' &&
-                request.resource.data.keys().hasAll(questionFields) &&
-                request.resource.data.keys().hasOnly(questionFields.concat(['imgUrl']))
-              ) || 
-              (
-                request.resource.data.type == 'concept' && 
-                request.resource.data.keys().hasAll(conceptFields) &&
-                request.resource.data.keys().hasOnly(conceptFields.concat(['imgUrl']))
-              )
-            )
-        }
+      function isSignedIn() {
+        return request.auth != null;
       }
+  
+      function isOwner(rating) {
+        return request.auth.uid == rating.createdBy;
+      }
+  
+      function isValidCard(card) {
+        return (
+          // card.createdBy
+          card.createdBy is string &&
+          card.createdBy.size() < 50 &&
+          card.createdBy != '' &&
+
+          // card.type
+          card.type is string &&
+          card.type == 'question' ||
+          card.type == 'concept' &&
+
+          // card.imgUrl
+          card.imgUrl is string &&
+          card.imgUrl.size() < 1024 
+
+        )
+      }
+
+      function isCalm() {
+        return ( 
+          request.time > resource.data.lastModifiedAt +
+          duration.value(600, 's')
+        ); 
+      }
+
+      function checkKeys() {
+        let commonFields = ['lastModifiedAt', 'createdBy', 'type'];
+        let conceptFields = ['title', 'description'].concat(commonFields);
+        let questionFields = ['question', 'options', 'answerKey'].concat(commonFields);
+        return (
+            (
+              request.resource.data.type == 'question' &&
+              request.resource.data.keys().hasAll(questionFields) &&
+              request.resource.data.keys().hasOnly(questionFields.concat(['imgUrl']))
+            ) || 
+            (
+              request.resource.data.type == 'concept' && 
+              request.resource.data.keys().hasAll(conceptFields) &&
+              request.resource.data.keys().hasOnly(conceptFields.concat(['imgUrl']))
+            )
+          )
+      }
+    }
+
+    match /User/{id}{
+      allow read: if isSignedIn();
+
+      allow create: if isValidUser(request.resource.data) &&
+          isOwner();
+
+      allow update: if isValidUser(request.resource.data) &&
+          isOwner();
+
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isValidUser(user) {
+        return (
+          user.category is list
+        )
+      }
+
+      function isOwner(){
+        return (request.auth.uid == id)
+      }
+    }
   }
 }

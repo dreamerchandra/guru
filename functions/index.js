@@ -4,7 +4,6 @@ const admin = require("firebase-admin");
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
-  apiKey: "AIzaSyA8ppkrYQVZ0VL9u2jpnjarDk3-C9tWqVY",
   authDomain: "staging-prodigie.firebaseapp.com",
   databaseURL: "https://staging-prodigie.firebaseio.com",
   projectId: "staging-prodigie",
@@ -111,14 +110,23 @@ exports.createBatch = functions.https.onCall(withAuth(async (data, context) => {
 }));
 
 
-// exports.forChapterIndex = functions.https.onCall(async (data, context) => {
-//   try {
-//     const uid = context.auth.uid;
-//     return await ref.chapter.where('createdBy', '==', uid).orderBy('lastModifiedAt', 'desc').limit(20).get();
-//   } catch (err) {
-//     functions.logger.log("err to create index", err);
-//   }
-// });
+exports.forChapterIndex = functions.https.onCall(async (data, context) => {
+  try {
+    const uid = context.auth.uid;
+    return await ref.chapter.where('folders', 'array-contains', 'V6S6Z5s1z25zsM6zA17w').orderBy('lastModifiedAt', 'desc').limit(20).get();
+  } catch (err) {
+    functions.logger.log("err to create index", err);
+  }
+});
+
+exports.forChapterIndex1 = functions.https.onCall(async (data, context) => {
+  try {
+    const uid = context.auth.uid;
+    return await ref.chapter.where('keywords', 'array-contains', 'abc').orderBy('lastModifiedAt', 'desc').limit(20).get();
+  } catch (err) {
+    functions.logger.log("err to create index", err);
+  }
+});
 
 
 // exports.forFolderIndex = functions.https.onCall(async (data, context) => {

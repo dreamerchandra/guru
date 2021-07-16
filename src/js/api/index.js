@@ -4,6 +4,7 @@ import cardsApi from "./cards";
 import categoryApi from "./category";
 import chapterApi, { chapterPaginate } from "./chapter";
 import folderApi, { folderPaginate } from "./folder";
+import userApi from "./user";
 
 const responseWrapper = {
   success: (data) => ({
@@ -22,6 +23,7 @@ export function apiFactory (http, baseUrl) {
     folder: folderApi(http, baseUrl, responseWrapper),
     chapter: chapterApi(http, baseUrl, responseWrapper),
     cards: cardsApi(http, baseUrl, responseWrapper),
+    user: userApi(http, baseUrl, responseWrapper),
     batch: batchApi(http, baseUrl, responseWrapper),
   };
 }

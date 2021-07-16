@@ -8,6 +8,7 @@ export const MODEL = {
   BATCHES: "batches",
   CONCEPT_CARD: "conceptCards",
   QUESTION_CARD: "questionCards",
+  CHOOSE_CATEGORY: "CHOOSE_CATEGORY",
   NA: "na",
 };
 

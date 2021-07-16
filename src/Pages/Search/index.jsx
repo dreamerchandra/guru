@@ -5,6 +5,32 @@ import { TileCard } from "../../Component/Card";
 import api, { queryConfig } from "../../js/api";
 import style from "../index.module.scss";
 
+const findDuplicates = (arr1, arr2) => {
+  let duplicates = 0;
+  arr1.forEach(item => {
+    if (arr2.includes(item)) {
+      duplicates++;
+    }
+  })
+  return duplicates;
+}
+
+const sortChapterBasedOnCategory = (chapters, category = []) => {
+  // extracting ids from category
+  const categoryId = category.map(({ id }) => id);
+
+  // assign rank based on number of duplicates so we can sort the highest category first and lower last
+  const chapterRank = chapters.map(chapter => {
+    const rank = findDuplicates(chapter.category, categoryId);
+    return {
+      ...chapter, rank
+    }
+  })
+
+  return chapterRank.sort((a, b) => a.rank - b.rank);
+}
+
+
 export default function Search() {
   const { search } = useParams();
 
@@ -14,6 +40,16 @@ export default function Search() {
     queryConfig
   );
 
+  const { data: userData = [] } = useQuery(
+    "my.user",
+    api.user.getMine,
+    queryConfig
+  );
+
+  const category = userData.category || [];
+
+  const searchResult = sortChapterBasedOnCategory(chapterData, category);
+
   return (
     <section style={{ marginTop: "35px" }}>
       <div className={style.toggleSwitch}></div>
@@ -22,7 +58,7 @@ export default function Search() {
           <h1 className="cardHeader">Search Result</h1>
         </div>
         <div className="cards fullPage">
-          {chapterData.map((chapter) => (
+          {searchResult.map((chapter) => (
             <TileCard
               img={chapter.titleImg}
               label={chapter.title}

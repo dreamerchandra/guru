@@ -3,6 +3,7 @@ import Folder from '../Pages/Folder'
 import Home from '../Pages/Home'
 import Landing from '../Pages/Landing'
 import Search from '../Pages/Search'
+import Student from '../Pages/Student'
 import Teacher from '../Pages/Teacher'
 
 const config = [
@@ -21,7 +22,12 @@ const config = [
   {
     path: '/teacher',
     component: Teacher,
-    linkName: 'Teacher-Home Page',
+    linkName: 'Teacher - Home Page',
+  },
+  {
+    path: '/student',
+    component: Student,
+    linkName: 'Student - Home Page',
   },
   {
     path: '/chapter/:chapterId',

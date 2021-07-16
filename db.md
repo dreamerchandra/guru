@@ -81,6 +81,15 @@
     }
   }
 }
+
+
+{
+  User: {
+    <user-id>: {
+      category: <cat-id>
+    }
+  }
+}
 ```
 
 Storage bucket

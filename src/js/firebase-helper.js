@@ -12,6 +12,7 @@ export const ref = (docId) => {
     chapter: db.collection('Chapter'),
     cards: db.collection('Chapter').doc(docId).collection('Cards'),
     batches: db.collection('Batches'),
+    user: db.collection('User'),
     db,
   }
 }

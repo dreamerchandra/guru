@@ -158,10 +158,10 @@ export default function chapterApi (http, baseUrl, responseWrapper) {
     getBy: async ({ folderId, search = '' }) => {
       let query = ref().chapter;
       if (folderId) {
-        query = query.where('folders', 'array-contains', folderId).where(`batches.${getCurrentUser()}`, '==', true)
+        query = query.where('folders', 'array-contains', folderId)
       }
       else if (search.length > 3) {
-        query = query.where('keywords', 'array-contains', search).where(`batches.${getCurrentUser()}`, '==', true)
+        query = query.where('keywords', 'array-contains', search)
       } else {
         return []
       }

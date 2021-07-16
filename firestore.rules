@@ -193,7 +193,9 @@ service cloud.firestore {
           // chapter.folders
           chapter.folders is list &&
           // chapter.keywords
-          chapter.keywords is list 
+          chapter.keywords is list &&
+          // chapter.batches
+          chapter.batches is map 
         );
       }
 
@@ -206,7 +208,7 @@ service cloud.firestore {
 
       function checkKeys() {
         let requiredFields = ['createdBy','createdAt','lastModifiedAt','tag'];
-        let optionalFields = ['title','titleImg','category','folders','keywords'];
+        let optionalFields = ['title','titleImg','category','folders','keywords', 'batches'];
         let allFields = requiredFields.concat(optionalFields);
         return request.resource.data.keys().hasAll(requiredFields) &&
         request.resource.data.keys().hasOnly(allFields)

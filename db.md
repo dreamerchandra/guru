@@ -28,7 +28,7 @@
       lastModifiedAt: <timestamp>,
       title: <string>,
       tag: Array<string>,
-      batches: Array<student>,
+      batches: {{studentId}: true}, // https://stackoverflow.com/a/52969138/5277189
       titleImg: <url>,
       category: Array<CategoryUiD>,
       folders: Array<folder-id>,

@@ -2,6 +2,7 @@ import Chapter from '../Pages/Chapter'
 import Folder from '../Pages/Folder'
 import Home from '../Pages/Home'
 import Landing from '../Pages/Landing'
+import Search from '../Pages/Search'
 import Teacher from '../Pages/Teacher'
 
 const config = [
@@ -31,6 +32,11 @@ const config = [
     path: '/folder/:folderId',
     component: Folder,
     linkName: 'Folder',
+  },
+  {
+    path: '/search/:search',
+    component: Search,
+    linkName: 'Search',
   },
 ]
 

@@ -61,12 +61,12 @@ const getKeyFromDataSnap = (snap, key, defaultReturn) => {
 
 const updateBatchCollection = async (newStudents, ownerId) => {
   functions.logger.log(`Starting to update batches and chapter collection for teacher id ${ownerId}.`);
-  const oldStudents = getKeyFromDataSnap(await ref.batch.doc(ownerId).get(), 'students', []);
-  const oldIds = oldStudents.map(({ id }) => id);
+  const oldStudents = getKeyFromDataSnap(await ref.batch.doc(ownerId).get(), 'students', {});
+  const oldIds = Object.keys(oldStudents);
   functions.logger.log(`Already as a part of batch: Student IDs ${JSON.stringify(oldIds)}.`);
   functions.logger.log(`New students as per update request ${JSON.stringify(newStudents)}.`);
   const students = [...oldStudents, ...newStudents.filter(({ id }) => !oldIds.includes(id))];
-  const newIds = students.map(({ id }) => id);
+  const newIds = students.reduce((pre, { id }) => ({ ...pre, [id]: true }), {});
   functions.logger.log(`Union between old and new student ids ${JSON.stringify(newIds)}.`);
   await ref.batch.doc(ownerId).set({ students });
   functions.logger.log(`Update to batches collection successful`);

@@ -50,7 +50,7 @@ function ChooseCategory({ hideModel }) {
   return (
     <section className="modelHolder">
       <div className="header">
-        <h1>New Batch</h1>
+        <h1>Interested Category</h1>
         <Close onClick={hideModel} />
       </div>
       <div className="body">

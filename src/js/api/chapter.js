@@ -40,12 +40,6 @@ function isNotValidChapter (chapter) {
   ) {
     return 'error in chapter.tag';
   } else if (
-    // chapter.titleImg
-    typeof chapter.titleImg !== 'string' ||
-    chapter.titleImg.length >= 200
-  ) {
-    return 'error in chapter.titleImg';
-  } else if (
     // chapter.category
     !Array.isArray(chapter.category)
   ) {
@@ -108,6 +102,12 @@ const paginate = new Paginate('my.chapter');
 export { paginate as chapterPaginate };
 
 const uploadFile = async (id, file) => {
+  if (!file) {
+    return {
+      task: Promise.resolve(null), fullPath: '',
+    }
+  }
+  
   const bucketRef = storageRef(`${id}/original`).chapter;
   return {
     task: bucketRef.put(file),
@@ -136,7 +136,7 @@ export default function chapterApi (http, baseUrl, responseWrapper) {
 
       const newDoc = ref().chapter.doc();
 
-      const { fullPath, task } = await uploadFile(newDoc.id, payload.titleImg.files[0]);
+      const { fullPath, task } = await uploadFile(newDoc.id, payload.titleImg?.files?.[0]);
       console.log(fullPath)
       const uploadPromise = new Defer()
       task.then(uploadPromise.resolve);

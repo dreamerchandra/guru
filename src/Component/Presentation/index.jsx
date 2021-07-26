@@ -43,7 +43,7 @@ export default function Presentation({ cards, fetchMore, Component, isMore }) {
 
       <div className={style.control}>
         <button disabled={!isBackAvailable} onClick={() => setCurrentId(preId)}>
-          back
+          Back
         </button>
         <button
           disabled={!isNextAvailable}

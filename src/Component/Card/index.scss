@@ -18,22 +18,32 @@
 
     >h1 {
       position: absolute;
-      bottom: 32px;
+      bottom: 13px;
       color: black;
+      left: 50%;
+      transform: translate(-50%, 0);
+      font-size: 18px;
+      height: 165px;
+      overflow: hidden;
+      width: 95%;
+      text-align: center;
+      display: flex;
+      background: blue;
+      align-items: center;
+      justify-content: center;
     }
 
     >img {
       object-fit: cover;
-      width: 100%;
-      height: 100%;
-      width: 99%;
+      width: 80%;
+      width: 50%;
       position: absolute;
       top: 0;
-      left: 0;
+      left: 50%;
       border-radius: 10px;
       opacity: 0.5;
-      filter: blur(2px);
-      height: 99%;
+      height: 50%;
+      transform: translate(-50%, 8px);
     }
   }
 
@@ -94,19 +104,22 @@
     width: inherit;
     background-size: cover !important;
     background-position: center !important;
-    height: 220px;
+    height: 400px;
     padding: 1em 2em;
-    background: $secondary;
+    background: white;
     border-radius: 10px;
 
     p {
       font-size: 1.4rem;
       line-height: 160%;
-      color: $secondary-t;
+      color: black;
+      height: inherit;
+      overflow: auto;
+      scrollbar-width: 1px;
+
+      &::-webkit-scrollbar {
+        width: 1px;
+      }
     }
   }
-}
-
-.text-shadow {
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.04), 2px 2px rgba(0, 0, 0, 0.04), 3px 3px rgba(0, 0, 0, 0.04), 4px 4px rgba(0, 0, 0, 0.04), 0.125rem 0.125rem rgba(0, 0, 0, 0.04), 6px 6px rgba(0, 0, 0, 0.04), 7px 7px rgba(0, 0, 0, 0.04), 8px 8px rgba(0, 0, 0, 0.04), 9px 9px rgba(0, 0, 0, 0.04), 0.3125rem 0.3125rem rgba(0, 0, 0, 0.04), 11px 11px rgba(0, 0, 0, 0.04), 12px 12px rgba(0, 0, 0, 0.04), 13px 13px rgba(0, 0, 0, 0.04), 14px 14px rgba(0, 0, 0, 0.04), 0.625rem 0.625rem rgba(0, 0, 0, 0.04), 16px 16px rgba(0, 0, 0, 0.04), 17px 17px rgba(0, 0, 0, 0.04), 18px 18px rgba(0, 0, 0, 0.04), 19px 19px rgba(0, 0, 0, 0.04), 1.25rem 1.25rem rgba(0, 0, 0, 0.04);
 }

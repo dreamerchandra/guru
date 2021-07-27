@@ -28,7 +28,6 @@
       width: 95%;
       text-align: center;
       display: flex;
-      background: blue;
       align-items: center;
       justify-content: center;
     }
@@ -112,10 +111,14 @@
     p {
       font-size: 1.4rem;
       line-height: 160%;
-      color: black;
+      color: #000;
       height: inherit;
       overflow: auto;
       scrollbar-width: 1px;
+      display: flex;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
 
       &::-webkit-scrollbar {
         width: 1px;

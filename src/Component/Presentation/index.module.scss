@@ -21,26 +21,26 @@ $main-margin: 15px;
   .miniBarWrapper {
     padding: 5px;
     display: flex;
+    flex-wrap: nowrap;
+    align-items: safe center;
+    margin: auto;
     overflow-y: hidden;
     overflow-x: auto;
-    width: 65vw;
-    margin: auto;
+
+    width: fit-content;
+    max-width: 65vw;
 
     @media (max-width: 600px) {
-      width: 90vw;
+      max-width: 90vw;
+      width: fit-content;
     }
 
-    flex-wrap: nowrap;
     -ms-overflow-style: none;
     scrollbar-width: none;
 
     &::-webkit-scrollbar {
       display: none;
     }
-
-    gap: 10px;
-    align-items: safe center;
-    justify-content: center;
 
     .miniBar {
       flex-shrink: 0;
@@ -54,6 +54,7 @@ $main-margin: 15px;
       color: black;
       display: grid;
       place-content: center;
+      overflow: hidden;
 
       &.active {
         box-shadow: $hover-l;

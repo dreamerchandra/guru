@@ -4,6 +4,12 @@ import { convertImgToDownloadPath, getDataFromQuerySnapShot, getServerTimeStamp,
 
 
 const uploadFile = async (cardId, chapterId, file) => {
+  if (!file) {
+    return {
+      task: Promise.resolve(null), fullPath: '',
+    }
+  }
+
   const chapterRef = storageRef(chapterId).chapter;
   const bucketRef = storageRef(`${cardId}/original`).card(chapterRef)
   console.log(bucketRef)
@@ -40,7 +46,7 @@ export default function cardsApi (http, baseUrl, responseWrapper) {
   return {
 
     get: async (chapterId, pageSize) => {
-      const snap = await ref(chapterId).cards.get()
+      const snap = await ref(chapterId).cards.orderBy('lastModifiedAt', 'desc').get()
       return Promise.all(
         getDataFromQuerySnapShot('id', snap).map(convertImgToDownloadPath('imgUrl'))
       );
@@ -59,7 +65,7 @@ export default function cardsApi (http, baseUrl, responseWrapper) {
 
       const newDoc = ref(chapterId).cards.doc();
 
-      const { fullPath, task } = await uploadFile(newDoc.id, chapterId, fields.imgUrl.files[0]);
+      const { fullPath, task } = await uploadFile(newDoc.id, chapterId, fields.imgUrl?.files?.[0]);
       const uploadPromise = new Defer()
       task.then(uploadPromise.resolve);
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./index.module.scss";
 
-export default function Presentation({ cards, fetchMore, Component, isMore }) {
+export default function Presentation({ cards, fetchMore, Component, isMore, chapterId }) {
   const firstID = cards[0]?.id;
   const [currentId, setCurrentId] = useState(firstID);
 
@@ -38,7 +38,7 @@ export default function Presentation({ cards, fetchMore, Component, isMore }) {
   return (
     <section className={style.root}>
       <div className={style.main}>
-        <Component {...displayCard} />
+        <Component {...displayCard} chapterId={chapterId}/>
       </div>
 
       <div className={style.control}>

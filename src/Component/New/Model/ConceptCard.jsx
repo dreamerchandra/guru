@@ -2,25 +2,33 @@ import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { ReactComponent as Close } from "../../../asserts/svg/close.svg";
-import { MODEL, useModel, withModelListener } from "../../../Hoc/Model";
-import api, { paginate } from "../../../js/api";
+import { MODEL, withModelListener } from "../../../Hoc/Model";
+import api from "../../../js/api";
 import Input from "../../Input";
 import Notification from "../../Notification";
 
-function ConceptCard({ hideModel, showModel, model: { info: modelInfo } }) {
+function ConceptCard({ hideModel, model: { info: modelInfo } }) {
+  const {
+    chapterId,
+    title = "",
+    imgUrl = null,
+    description = "",
+    cardId,
+  } = modelInfo;
+
   const [fields, setFields] = useState({
-    title: "",
-    imgUrl: null,
-    description: "",
+    title,
+    imgUrl,
+    description,
   });
 
   const queryClient = useQueryClient();
 
-  const createChapter = useMutation(api.cards.createConcept, {
+  const createChapter = useMutation(api.cards.upsertConcept, {
     onSuccess: () => {
       toast.dark(<Notification showSuccessIcon text="Success" />);
       hideModel();
-      queryClient.invalidateQueries(`${modelInfo.chapterId}.cards`);
+      queryClient.invalidateQueries(`${chapterId}.cards`);
     },
     onError: (err) => {
       toast.dark(
@@ -45,13 +53,7 @@ function ConceptCard({ hideModel, showModel, model: { info: modelInfo } }) {
   return (
     <section className="modelHolder">
       <div className="header">
-        <h1>
-          New
-          <button onClick={() => showModel(MODEL.QUESTION_CARD)}>
-            Concept {">"}
-          </button>
-          Card
-        </h1>
+        <h1> Concept Card </h1>
         <Close onClick={hideModel} />
       </div>
       <div className="body">
@@ -78,9 +80,7 @@ function ConceptCard({ hideModel, showModel, model: { info: modelInfo } }) {
       <div className="footer">
         <button
           disabled={createChapter.isLoading}
-          onClick={() =>
-            createChapter.mutate({ chapterId: modelInfo.chapterId, fields })
-          }
+          onClick={() => createChapter.mutate({ chapterId, fields, cardId })}
         >
           Save
         </button>

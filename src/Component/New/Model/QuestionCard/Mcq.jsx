@@ -67,7 +67,7 @@ export default function Mcq({ hideModel, model: { info: modelInfo } }) {
     onSuccess: () => {
       toast.dark(<Notification showSuccessIcon text="Success" />);
       hideModel();
-      // queryClient.invalidateQueries(`${modelInfo.chapterId}.cards`);
+      queryClient.invalidateQueries(`${modelInfo.chapterId}.cards`);
     },
     onError: (err) => {
       toast.dark(

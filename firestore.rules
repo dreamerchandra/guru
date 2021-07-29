@@ -271,7 +271,7 @@ service cloud.firestore {
       function isCalm() {
         return ( 
           request.time > resource.data.lastModifiedAt +
-          duration.value(600, 's')
+          duration.value(10, 's')
         ); 
       }
 

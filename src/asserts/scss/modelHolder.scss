@@ -5,7 +5,7 @@ $header-height: max(5.5vw, 55px);
 $footer-height: 55px;
 
 .modelHolder {
-  z-index: 99;
+  z-index: $MODEL_INDEX;
   position: absolute;
   top: 0;
   bottom: 0;

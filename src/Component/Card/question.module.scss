@@ -11,6 +11,25 @@
   justify-items: center;
   align-items: center;
   padding: 15px;
+  position: relative;
+
+  .editWrapper {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border: 1px solid $primary-t;
+    padding: 5px;
+    box-shadow: $hover-s;
+    border-radius: 50%;
+    z-index: $EDIT_INDEX;
+
+    >svg {
+      fill: $primary-t;
+      margin: auto;
+      width: 20px;
+      height: 20px;
+    }
+  }
 
   img {
     width: 35%;

@@ -4,10 +4,9 @@ import { useParams } from "react-router-dom";
 import api, { queryConfig } from "../../js/api";
 import New from "../../Component/New";
 import { MODEL, useModel } from "../../Hoc/Model";
-import { LearningCards } from "../../Component/Card";
+import { LearningCards, QuestionCard } from "../../Component/Card";
 import Toggle from "../../Component/Toggle";
 import style from "../index.module.scss";
-import QuestionCard from "../../Component/Question";
 import Presentation from "../../Component/Presentation";
 
 export default function Chapter() {
@@ -56,6 +55,7 @@ export default function Chapter() {
             )}
             fetchMore={() => {}}
             isMore={false}
+            chapterId={chapterId}
           />
         </div>
       </div>

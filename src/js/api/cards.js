@@ -6,7 +6,7 @@ import { convertImgToDownloadPath, getDataFromQuerySnapShot, getServerTimeStamp,
 const uploadFile = async (cardId, chapterId, file) => {
   if (!file) {
     return {
-      task: Promise.resolve(null), fullPath: '',
+      task: Promise.resolve(null), fullPath: undefined,
     }
   }
 
@@ -52,10 +52,11 @@ export default function cardsApi (http, baseUrl, responseWrapper) {
       );
     },
 
-    createConcept: async ({ chapterId, fields }) => {
+    upsertConcept: async ({ chapterId, fields, cardId = null }) => {
+      const oldImgUrl = typeof (fields.imgUrl) === 'string' ? fields.imgUrl : '';
       const data = {
         ...fields,
-        imgUrl: '',
+        imgUrl: oldImgUrl,
         createdBy: getCurrentUser(),
         lastModifiedAt: getServerTimeStamp(),
         type: 'concept'
@@ -63,11 +64,13 @@ export default function cardsApi (http, baseUrl, responseWrapper) {
 
       checkConceptData(data);
 
-      const newDoc = ref(chapterId).cards.doc();
+      const newDoc = cardId ? ref(chapterId).cards.doc(cardId) : ref(chapterId).cards.doc();
 
-      const { fullPath, task } = await uploadFile(newDoc.id, chapterId, fields.imgUrl?.files?.[0]);
+      const { fullPath = oldImgUrl, task } = await uploadFile(newDoc.id, chapterId, fields.imgUrl?.files?.[0]);
       const uploadPromise = new Defer()
       task.then(uploadPromise.resolve);
+
+      console.log('creating an concept with payload', { ...data, imgUrl: fullPath })
 
       return Promise.all([
         newDoc.set({ ...data, imgUrl: fullPath }),

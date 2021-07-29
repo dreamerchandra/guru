@@ -26,9 +26,9 @@ export default function QuestionCard({ question, imgUrl, answerKey, options }) {
 
   return (
     <div className={style.mcq}>
-      <div className={style.editWrapper} onClick={() => showModel(MODEL.QUESTION_CARD, )}>
+      {/* <div className={style.editWrapper} onClick={() => showModel(MODEL.QUESTION_CARD, )}>
         <EditIcon />
-      </div>
+      </div> */}
       {imgUrl && <img src={imgUrl} alt={quesLabel} />}
       <h2 className={imgUrl && `${style.shrink}`}>{quesLabel}</h2>
       <div className={`${style.choiceWrapper} ${imgUrl && `${style.shrink}`}`}>

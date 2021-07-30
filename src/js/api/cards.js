@@ -64,38 +64,39 @@ export default function cardsApi (http, baseUrl, responseWrapper) {
 
       checkConceptData(data);
 
-      const newDoc = cardId ? ref(chapterId).cards.doc(cardId) : ref(chapterId).cards.doc();
+      const docRef = cardId ? ref(chapterId).cards.doc(cardId) : ref(chapterId).cards.doc();
 
-      const { fullPath = oldImgUrl, task } = await uploadFile(newDoc.id, chapterId, fields.imgUrl?.files?.[0]);
+      const { fullPath = oldImgUrl, task } = await uploadFile(docRef.id, chapterId, fields.imgUrl?.files?.[0]);
       const uploadPromise = new Defer()
       task.then(uploadPromise.resolve);
 
       console.log('creating an concept with payload', { ...data, imgUrl: fullPath })
 
       return Promise.all([
-        newDoc.set({ ...data, imgUrl: fullPath }),
+        docRef.set({ ...data, imgUrl: fullPath }),
         uploadPromise
       ]);
     },
 
-    createMcq: async ({ chapterId, fields }) => {
+    upsertMcq: async ({ chapterId, fields, cardId = null }) => {
+      const oldImgUrl = typeof (fields.imgUrl) === 'string' ? fields.imgUrl : '';
       const data = {
         ...fields,
-        imgUrl: '',
+        imgUrl: oldImgUrl,
         createdBy: getCurrentUser(),
         lastModifiedAt: getServerTimeStamp(),
         type: 'question'
       }
       checkMcq(data);
 
-      const newDoc = ref(chapterId).cards.doc();
+      const docRef = cardId ? ref(chapterId).cards.doc(cardId) : ref(chapterId).cards.doc();
 
-      const { fullPath = '', task } = fields.imgUrl ? await uploadFile(newDoc.id, chapterId, fields.imgUrl.files[0]) : { task: Promise.resolve() };
+      const { fullPath = oldImgUrl, task } = fields.imgUrl ? await uploadFile(docRef.id, chapterId, fields.imgUrl.files[0]) : { task: Promise.resolve() };
       const uploadPromise = new Defer()
       task.then(uploadPromise.resolve);
 
       return Promise.all([
-        newDoc.set({ ...data, imgUrl: fullPath }),
+        docRef.set({ ...data, imgUrl: fullPath }),
         uploadPromise
       ]);
     }

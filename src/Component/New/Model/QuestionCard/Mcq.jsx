@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import api from "../../../../js/api";
-import Input from "../../../Input";
 import InputClip from "../../../../Component/ClipInput";
+import api from "../../../../js/api";
+import { getUuid } from "../../../../js/helper";
+import Input from "../../../Input";
 import Notification from "../../../Notification";
-import { getUuid, InternalError } from "../../../../js/helper";
 import style from "./index.module.scss";
 
-const McqOptions = ({ options, highlightLabel, onClick }) => {
+const McqOptions = ({ options, selectedLabel, onClick }) => {
   return (
     <div className={style.mcqOptionWrapper}>
-      {options.map((option) => (
+      {options.map((option, idx) => (
         <button
-          key={option}
-          className={`${option === highlightLabel && `${style.selected}`}`}
+          key={idx}
+          className={`${option === selectedLabel && `${style.selected}`}`}
           onClick={() => onClick(option)}
         >
           {option}
@@ -52,22 +52,36 @@ const transformData = (fields) => {
   };
 };
 
-export default function Mcq({ hideModel, model: { info: modelInfo } }) {
+const transformPropsOnEdit = (data) => {
+  const options = data.options?.map(({ label }) => label) ?? [];
+  const { imgUrl, quesLabel: question = "", ansId, cardId, chapterId } = data;
+  const answerKey = data.options.find(({ id }) => id === ansId)?.label ?? "";
+  return {
+    options,
+    imgUrl,
+    question,
+    answerKey,
+    cardId,
+    chapterId,
+  };
+}
+
+export default function Mcq ({ hideModel, model: { info: modelInfo } }) {
+  const { options, imgUrl, question, answerKey, cardId, chapterId } = transformPropsOnEdit(modelInfo);
   const [fields, setFields] = useState({
-    question: "",
-    options: [],
-    answerKey: "",
-    questionId: getUuid(),
-    imgUrl: null,
+    question,
+    options,
+    answerKey,
+    imgUrl,
   });
 
   const queryClient = useQueryClient();
 
-  const createMcq = useMutation(api.cards.createMcq, {
+  const createMcq = useMutation(api.cards.upsertMcq, {
     onSuccess: () => {
       toast.dark(<Notification showSuccessIcon text="Success" />);
       hideModel();
-      queryClient.invalidateQueries(`${modelInfo.chapterId}.cards`);
+      queryClient.invalidateQueries(`${chapterId}.cards`);
     },
     onError: (err) => {
       toast.dark(
@@ -101,6 +115,7 @@ export default function Mcq({ hideModel, model: { info: modelInfo } }) {
         <Input
           label="Image"
           type="file"
+          inputProps={{ accept: "image/*" }}
           value={fields.imgUrl}
           setValue={setField("imgUrl")}
         />
@@ -113,7 +128,7 @@ export default function Mcq({ hideModel, model: { info: modelInfo } }) {
         <McqOptions
           options={fields.options}
           onClick={setField("answerKey")}
-          highlightLabel={fields.answerKey}
+          selectedLabel={fields.answerKey}
         />
       </div>
       <div className="footer">
@@ -121,8 +136,9 @@ export default function Mcq({ hideModel, model: { info: modelInfo } }) {
           disabled={createMcq.isLoading}
           onClick={() =>
             createMcq.mutate({
-              chapterId: modelInfo.chapterId,
+              chapterId,
               fields: transformData(fields),
+              cardId,
             })
           }
         >

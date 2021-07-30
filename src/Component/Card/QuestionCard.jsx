@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import style from "./question.module.scss";
 import { ReactComponent as EditIcon } from "./edit.svg";
 import { MODEL, useModel } from "../../Hoc/Model";
+import { QUESTION_TYPE } from "../New/Model/QuestionCard";
 
-export default function QuestionCard({ question, imgUrl, answerKey, options }) {
+export default function QuestionCard({
+  question,
+  imgUrl,
+  answerKey,
+  options,
+  id: cardId,
+  chapterId,
+}) {
   const quesLabel = question?.[0]?.label;
   const ansId = answerKey?.[0]?.answerId;
 
@@ -26,9 +34,22 @@ export default function QuestionCard({ question, imgUrl, answerKey, options }) {
 
   return (
     <div className={style.mcq}>
-      {/* <div className={style.editWrapper} onClick={() => showModel(MODEL.QUESTION_CARD, )}>
+      <div
+        className={style.editWrapper}
+        onClick={() =>
+          showModel(MODEL.QUESTION_CARD, {
+            options,
+            imgUrl,
+            quesLabel,
+            ansId,
+            cardId,
+            chapterId,
+            type: QUESTION_TYPE.MCQ,
+          })
+        }
+      >
         <EditIcon />
-      </div> */}
+      </div>
       {imgUrl && <img src={imgUrl} alt={quesLabel} />}
       <h2 className={imgUrl && `${style.shrink}`}>{quesLabel}</h2>
       <div className={`${style.choiceWrapper} ${imgUrl && `${style.shrink}`}`}>
@@ -36,6 +57,7 @@ export default function QuestionCard({ question, imgUrl, answerKey, options }) {
           <button
             className={`${style.choice} ${getClassName(id)}`}
             onClick={() => setOptionId(id)}
+            key={id}
           >
             {ansLabel}
           </button>

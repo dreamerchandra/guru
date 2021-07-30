@@ -3,23 +3,28 @@ import { ReactComponent as Close } from "../../../../asserts/svg/close.svg";
 import { MODEL, withModelListener } from '../../../../Hoc/Model';
 import Mcq from './Mcq';
 
+export const QUESTION_TYPE = {
+  MCQ: 'mcq',
+  MATCH: 'match',
+}
+
 
 const Option = ({ modelProp }) => {
-  const [option, setOption] = useState(null);
+  const [option, setOption] = useState(modelProp.model.info?.type ?? null);
   return (
     <>
       {
-        option === 'mcq' && <Mcq {...modelProp} />
+        option === QUESTION_TYPE.MCQ && <Mcq {...modelProp} />
       }
       {
-        option === 'match' && null
+        option === QUESTION_TYPE.MATCH && null
       }
       {
         !option &&
         (
           <div className="footer">
-            <button className="primary" onClick={() => setOption('mcq')}>Mcq</button>
-            <button className="secondary" onClick={() => setOption('match')}>Match</button>
+            <button className="primary" onClick={() => setOption(QUESTION_TYPE.MCQ)}>Mcq</button>
+            <button className="secondary" onClick={() => setOption(QUESTION_TYPE.MATCH)}>Match</button>
           </div>
         )
       }

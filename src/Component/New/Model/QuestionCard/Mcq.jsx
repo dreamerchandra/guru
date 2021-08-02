@@ -55,7 +55,7 @@ const transformData = (fields) => {
 const transformPropsOnEdit = (data) => {
   const options = data.options?.map(({ label }) => label) ?? [];
   const { imgUrl, quesLabel: question = "", ansId, cardId, chapterId } = data;
-  const answerKey = data.options.find(({ id }) => id === ansId)?.label ?? "";
+  const answerKey = data.options?.find(({ id }) => id === ansId)?.label ?? "";
   return {
     options,
     imgUrl,

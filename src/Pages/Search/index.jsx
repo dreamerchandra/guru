@@ -51,7 +51,7 @@ export default function Search() {
   const searchResult = sortChapterBasedOnCategory(chapterData, category);
 
   return (
-    <section style={{ marginTop: "35px" }}>
+    <section>
       <div className={style.toggleSwitch}></div>
       <div className="cardsHolder">
         <div className="cardHeaderWrapper">

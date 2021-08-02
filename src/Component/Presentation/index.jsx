@@ -37,7 +37,7 @@ export default function Presentation({ cards, fetchMore, Component, isMore, chap
 
   return (
     <section className={style.root}>
-      <div className={style.main}>
+      <div>
         <Component {...displayCard} chapterId={chapterId}/>
       </div>
 

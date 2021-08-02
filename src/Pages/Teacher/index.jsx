@@ -25,7 +25,7 @@ export default function Teacher() {
   );
 
   return (
-    <section style={{ marginTop: "35px" }}>
+    <section>
       <div className="cardsHolder">
         <div className="cardHeaderWrapper">
           <h1 className="cardHeader">Folders</h1>

@@ -35,10 +35,9 @@
       flex-wrap: wrap;
       margin: auto;
       width: 90vw;
-      height: 65vh;
+      height: 75vh;
       overflow: auto;
       justify-content: space-around;
-      align-items: safe center;
 
       @media (max-width: 600px) {
         height: 75vh;

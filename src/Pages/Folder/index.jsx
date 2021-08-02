@@ -15,7 +15,7 @@ export default function Folder() {
   );
 
   return (
-    <section style={{ marginTop: "35px" }}>
+    <section>
       <div className={style.toggleSwitch}></div>
       <div className="cardsHolder">
         <div className="cardHeaderWrapper">

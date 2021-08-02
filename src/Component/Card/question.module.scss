@@ -32,8 +32,11 @@
   }
 
   img {
-    width: 35%;
-
+    width: 20%;
+    
+    @media screen and (min-width: 1920px) {
+      width: 35%;
+    }
     @media (max-width: 600px) {
       width: 70%;
     }

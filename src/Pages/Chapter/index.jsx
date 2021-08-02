@@ -33,7 +33,7 @@ export default function Chapter() {
   };
 
   return (
-    <section style={{ marginTop: "35px" }}>
+    <section>
       <div className={style.toggleSwitch}>
         <Toggle
           offLabel="Question"

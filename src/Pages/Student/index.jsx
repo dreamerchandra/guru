@@ -33,7 +33,7 @@ export default function Student() {
   }, [userData, isLoading, showModel])
 
   return (
-    <section style={{ marginTop: "35px" }}>
+    <section>
       <div className="cardsHolder">
         <div className="cardHeaderWrapper">
           <h1 className="cardHeader">Folders</h1>

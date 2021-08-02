@@ -5,17 +5,10 @@ $main-margin: 15px;
 .root {
   display: flex;
   flex-direction: column;
-  height: 65vh;
+  height: 75vh;
 
   @media (max-width: 600px) {
     height: 75vh;
-  }
-
-  .main {
-    height: $main-height;
-    display: grid;
-    place-content: center;
-    margin: $main-margin;
   }
 
   .miniBarWrapper {

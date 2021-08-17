@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import style from "./titleCard.module.scss";
-import { DefaultMore } from "./more";
+import { DefaultMenu } from "./ContextMenu";
 
 const TileCard = ({
   img,
@@ -14,7 +14,7 @@ const TileCard = ({
 
   return (
     <Link to={to} className={style.card} onClick={() => to || onClick()}>
-      <DefaultMore
+      <DefaultMenu
         className={style.moreOption}
         onDelete={onEdit}
         onEdit={onEdit}

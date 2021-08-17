@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './learningCard.scss';
-import { ReactComponent as EditIcon } from './edit.svg';
 import { MODEL, useModel } from '../../Hoc/Model';
-import More, { DefaultMore } from './more';
+import { DefaultMenu } from './ContextMenu';
+import './learningCard.scss';
 
 export default function LearningCards ({
   imgUrl = '',
@@ -22,7 +21,7 @@ export default function LearningCards ({
 
   return (
     <div className={`flip ${flip && 'flip-vertical'}`} onClick={() => setFlip(!flip)}>
-      <DefaultMore
+      <DefaultMenu
         onDelete={() => showModel(MODEL.CONCEPT_CARD, { chapterId, title, imgUrl, description, cardId })}
         onEdit={() => showModel(MODEL.CONCEPT_CARD, { chapterId, title, imgUrl, description, cardId })}
       />

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import style from "./more.module.scss";
+import style from "./contextMenu.module.scss";
 import { ReactComponent as EditIcon } from "./edit.svg";
 import { ReactComponent as DeleteIcon } from "./delete.svg";
 
-export default function More({ children, className }) {
+export default function ContextMenu({ children, className }) {
   const [open, setOpen] = useState(false);
 
   /**
    *
    * @param {Event} e
    */
-  const onMore = (e) => {
+  const onClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setOpen(!open);
@@ -21,7 +21,7 @@ export default function More({ children, className }) {
   return (
     <div className={`${className} ${style.root}`}>
       <button
-        onClick={onMore}
+        onClick={onClick}
         onMouseDown={(e) => e.stopPropagation()}
         className={`${open && style.active}`}
       >
@@ -34,9 +34,9 @@ export default function More({ children, className }) {
   );
 }
 
-export const DefaultMore = ({ onEdit, onDelete, className}) => {
+export const DefaultMenu = ({ onEdit, onDelete, className}) => {
   return (
-    <More className={`more ${className}`}>
+    <ContextMenu className={`more ${className}`}>
       {onEdit && (
         <div
           onClick={(e) => {
@@ -61,6 +61,6 @@ export const DefaultMore = ({ onEdit, onDelete, className}) => {
           <DeleteIcon />
         </div>
       )}
-    </More>
+    </ContextMenu>
   );
 };

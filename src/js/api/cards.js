@@ -4,6 +4,10 @@ import { getCurrentUser } from "../firebase-auth";
 import { convertImgToDownloadPath, getDataFromQuerySnapShot, getServerTimeStamp, ref, storageRef } from "../firebase-helper";
 
 
+const getFileName = (file) => {
+  return file ? file.split('\\')[file.split('\\').length - 1] : '';
+}
+
 const uploadFile = async (cardId, chapterId, file, fileName='original') => {
   if (!file) {
     return {
@@ -109,7 +113,7 @@ export default function cardsApi (http, baseUrl, responseWrapper) {
           ...field,
           qImg: typeof (field.qImg) === 'string' ? field.qImg : '',
           aImg: typeof (field.aImg) === 'string' ? field.aImg : '',
-        })) ,
+        })),
         createdBy: getCurrentUser(),
         lastModifiedAt: getServerTimeStamp(),
         type: 'question',
@@ -119,26 +123,27 @@ export default function cardsApi (http, baseUrl, responseWrapper) {
       const docRef = cardId ? ref(chapterId).cards.doc(cardId) : ref(chapterId).cards.doc();
 
       const uploadTaskInfo = fields.map(async (field) => {
+        const qFile = field.qImg?.files?.[0] ?? '';
+        const aFile = field.aImg?.files?.[0] ?? '';
+        const qFileLabel = getFileName(field.qImg?.label);
+        const aFileLabel = getFileName(field.aImg?.label);
         return {
-          qImg:  await uploadFile(docRef.id, chapterId, field.qImg?.files?.[0] ?? ''),
-          aImg: await uploadFile(docRef.id, chapterId, field.aImg?.files?.[0] ?? '')
-        } 
+          qImg: await uploadFile(docRef.id, chapterId, qFile, qFileLabel),
+          aImg: await uploadFile(docRef.id, chapterId, aFile, aFileLabel)
+        }
       })
       const uploadPromise = uploadTaskInfo.map(async (promise, idx) => {
         const info = await promise
-        data.fields[idx].qImg = info.qImg.fullPath;
-        data.fields[idx].aImg = info.aImg.fullPath;
+        data.fields[idx].qImg = info.qImg.fullPath || '';
+        data.fields[idx].aImg = info.aImg.fullPath || '';
 
         const qImgPromise = new Defer();
         const aImgPromise = new Defer();
         return [info.qImg.task.then(qImgPromise.resolve), info.aImg.task.then(aImgPromise.resolve)];
       });
+      await Promise.all(uploadPromise)
 
-      return Promise.all([
-        docRef.set({ ...data }),
-        ...uploadPromise.map((info) => info[0]),
-        ...uploadPromise.map((info) => info[1]),
-      ]);
+      return docRef.set({ ...data })
     }
 
   }

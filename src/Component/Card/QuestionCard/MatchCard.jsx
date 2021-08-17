@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { shuffleArray } from "../../../js/helper";
+import StorageImg from "../../StorageImg";
 import style from './match.module.scss'
 
 const TYPE = {
@@ -10,6 +11,7 @@ const TYPE = {
 const seedState = (fields) => {
   const questions = fields.map((field) => ({
     label: field.question,
+    imgUrl: field.qImg,
     id: field.id,
     key: `${TYPE.QUESTION}${field.id}`,
     type: TYPE.QUESTION,
@@ -18,6 +20,7 @@ const seedState = (fields) => {
   }));
   const answers = fields.map((field) => ({
     label: field.answer,
+    imgUrl: field.aImg,
     type: TYPE.ANSWER,
     key: `${TYPE.ANSWER}${field.id}`,
     id: field.id,
@@ -87,8 +90,8 @@ export default function MatchCard({ fields }) {
             key={option.key}
             onClick={onTileSelect.bind(null, option)}
           >
-            {(option.qImg || option.aImg) && (
-              <img src={option.qImg || option.aImg} alt={option.label} />
+            {option.imgUrl && (
+              <StorageImg src={option.imgUrl} alt={option.label} />
             )}
             {option.label}
           </div>

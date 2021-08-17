@@ -41,9 +41,8 @@ export default function Match({ hideModel, model: { info: modelInfo } }) {
   const setField = (name, index) => (val) => {
     setFields((pre) => {
       const newVal = typeof val === "function" ? val(pre[index][name]) : val;
-      const newState = JSON.parse(JSON.stringify(pre));
-      newState[index][name] = newVal;
-      return newState;
+      pre[index][name] = newVal;
+      return [...pre];
     });
   };
 
@@ -107,7 +106,9 @@ export default function Match({ hideModel, model: { info: modelInfo } }) {
         </button>
         <button
           disabled={createMatch.isLoading}
-          onClick={() => createMatch.mutate({ chapterId, fields, cardId })}
+          onClick={() => {
+            createMatch.mutate({ chapterId, fields, cardId })
+          }}
         >
           Save
         </button>

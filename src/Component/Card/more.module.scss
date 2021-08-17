@@ -1,0 +1,66 @@
+@import '../../var.scss';
+
+$MORE_CIRCLE_SIZE: 5px;
+
+.root {
+  display: inline-block;
+  padding: 5px 5px;
+
+  >button {
+    padding: 2px;
+
+    &.active {
+      border: 1px solid $svg-shade;
+    }
+
+    >code {
+      display: block;
+      width: $MORE_CIRCLE_SIZE;
+      height: $MORE_CIRCLE_SIZE;
+      border-radius: 50%;
+      background-color: $primary-t;
+      margin: 3px auto;
+    }
+  }
+
+  >.optionWrapper {
+    background-color: $secondary;
+    box-shadow: $hover-m;
+    width: 20ch;
+
+    display: flex;
+    flex-direction: column;
+
+    // simulating border collapse https://stackoverflow.com/a/5737768/5277189
+    border: 0 solid $primary-t;
+    border-width: 0 0 1px 1px;
+    >* {
+      border: 0 solid $primary-t;
+      border-width: 1px 1px 0 0;
+      padding: .5em;
+    }
+
+    >* {
+      margin: 0;
+      height: 25px;
+      display: flex;
+      align-items: center;
+
+      span {
+        width: 80%;
+        font-size: medium;
+        color: $secondary-t;
+      }
+
+      svg,
+      img {
+        width: 20%;
+        fill: $secondary-t;
+        
+        path {
+          fill: $secondary-t !important;
+        }
+      }
+    }
+  }
+}

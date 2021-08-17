@@ -25,3 +25,13 @@ export const isValidUrl = (url) => {
 export const getUuid = () => {
   return uuidv4()
 }
+
+
+export function shuffleArray (array) {
+  const clone = JSON.parse(JSON.stringify(array))
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [clone[i], clone[j]] = [clone[j], clone[i]];
+  }
+  return clone
+}

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import InputClip from "../../../../Component/ClipInput";
-import api from "../../../../js/api";
-import { getUuid } from "../../../../js/helper";
-import Input from "../../../Input";
-import Notification from "../../../Notification";
+import InputClip from "../../ClipInput";
+import api from "../../../js/api";
+import { getUuid } from "../../../js/helper";
+import Input from "../../Input";
+import Notification from "../../Notification";
 import style from "./index.module.scss";
 
 const McqOptions = ({ options, selectedLabel, onClick }) => {

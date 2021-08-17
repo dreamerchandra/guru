@@ -126,6 +126,16 @@ $footer-height: 55px;
       background-color: $primary;
       color: $primary-t;
       @include hover();
+      cursor: pointer;
+
+      &.secondary {
+        border: 0;
+        color: black;
+        background-color: transparent;
+        box-shadow: none;
+        text-decoration: underline;
+        font-size: 2em;
+      }
     }
   }
 }

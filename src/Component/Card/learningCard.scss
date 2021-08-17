@@ -8,7 +8,7 @@ $l-height: 500px;
 .flip {
   position: relative;
 
-  >svg {
+  >.more {
     position: absolute;
     right: 20px;
     top: 20px;
@@ -20,8 +20,8 @@ $l-height: 500px;
   >.front,
   >.back {
     display: block;
-    transition-timing-function: cubic-bezier(.175, .885, .32, 1.275);
-    transition-duration: .5s;
+    transition-timing-function: ease-out;
+    transition-duration: 0.65s;
     transition-property: transform, opacity;
   }
 
@@ -64,7 +64,7 @@ $l-height: 500px;
     opacity: 0;
     top: 0px;
     left: 0px;
-    transform: rotateY(-180deg);
+    transform: rotateX(-180deg);
   }
 
   &.flip-horizontal {
@@ -79,18 +79,14 @@ $l-height: 500px;
   }
 
   &.flip-vertical {
-    >.back {
-      transform: rotateX(-180deg);
+    >.front {
+      opacity: 0;
+      transform: rotateX(180deg);
     }
 
-    &:hover {
-      >.front {
-        transform: rotateX(180deg);
-      }
-
-      >.back {
-        transform: rotateX(0deg);
-      }
+    >.back {
+      opacity: 1;
+      transform: rotateX(0deg);
     }
   }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ReactComponent as Close } from "../../../../asserts/svg/close.svg";
-import { MODEL, withModelListener } from '../../../../Hoc/Model';
+import { ReactComponent as Close } from "../../../asserts/svg/close.svg";
+import { MODEL, withModelListener } from '../../../Hoc/Model';
+import Match from './Match';
 import Mcq from './Mcq';
 
 export const QUESTION_TYPE = {
@@ -17,14 +18,14 @@ const Option = ({ modelProp }) => {
         option === QUESTION_TYPE.MCQ && <Mcq {...modelProp} />
       }
       {
-        option === QUESTION_TYPE.MATCH && null
+        option === QUESTION_TYPE.MATCH && <Match {...modelProp} />
       }
       {
         !option &&
         (
           <div className="footer">
-            <button className="primary" onClick={() => setOption(QUESTION_TYPE.MCQ)}>Mcq</button>
             <button className="secondary" onClick={() => setOption(QUESTION_TYPE.MATCH)}>Match</button>
+            <button className="primary" onClick={() => setOption(QUESTION_TYPE.MCQ)}>Mcq</button>
           </div>
         )
       }

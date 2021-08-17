@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import { ReactComponent as Close } from "../../../asserts/svg/close.svg";
-import { MODEL, withModelListener } from "../../../Hoc/Model";
-import api from "../../../js/api";
-import InputClip from "../../ClipInput";
-import Notification from "../../Notification";
+import { ReactComponent as Close } from "../../asserts/svg/close.svg";
+import { MODEL, withModelListener } from "../../Hoc/Model";
+import api from "../../js/api";
+import InputClip from "../ClipInput";
+import Notification from "../Notification";
 
 function Batch({ hideModel }) {
   const [fields, setFields] = useState({

@@ -167,7 +167,7 @@ export default function chapterApi (http, baseUrl, responseWrapper) {
       }
       const snap = await query.orderBy('lastModifiedAt', 'desc').get()
       return Promise.all(getDataFromQuerySnapShot('id', snap).map(convertImgToDownloadPath()));
-    }
+    },
 
   }
 }

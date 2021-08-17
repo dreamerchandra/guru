@@ -35,22 +35,31 @@
       keywords: UniqueArray<lower(Token(title, tag), category)>
       Cards: {
         <card-id>: { // no indexing
-            createdBy: <personId>,
-            title: String,
-            lastModifiedAt: <timestamp>,
-            description: String,
-            type: <question|concept>,
-            imgUrl: url,
+          createdBy: <personId>,
+          title: String,
+          lastModifiedAt: <timestamp>,
+          description: String,
+          type: <question|concept>,
+          imgUrl: url,
         },
         <card-id2>: {
             lastModifiedAt: <timestamp>,
             createdBy: <personId>,
             description: String,
             type: <question|concept>,
+            subType: <MATCH|MCQ>, // <MCQ>
             imgUrl: url,
             question: Array<{id: questionId, label: String}>, // for MCQ single entity will be present and for match it will have multiple question
             options: Array<{id: answerId, label: String}>,
             answerKey: Array<{questionId: <questionId>, answerId: <answerId>}>
+          },
+        <card-id3>: {
+            lastModifiedAt: <timestamp>,
+            createdBy: <personId>,
+            description: String,
+            type: <question|concept>,
+            subType: <MATCH|MCQ>, // <MATCH>
+            options: Array<{id: string, question: string, qImg: string, aImg: string, answer: string}> 
           }
         }
       }
@@ -101,7 +110,8 @@ Storage bucket
     }
     card: {
       card-id: {
-        original: img,
+        original: img, // for mcq,
+        <optionsId-original>: img // for match
       }
     }
   }

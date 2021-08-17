@@ -259,11 +259,7 @@ service cloud.firestore {
           // card.type
           card.type is string &&
           card.type == 'question' ||
-          card.type == 'concept' &&
-
-          // card.imgUrl
-          card.imgUrl is string &&
-          card.imgUrl.size() < 1024 
+          card.type == 'concept'
 
         )
       }
@@ -278,13 +274,21 @@ service cloud.firestore {
       function checkKeys() {
         let commonFields = ['lastModifiedAt', 'createdBy', 'type'];
         let conceptFields = ['title', 'description'].concat(commonFields);
-        let questionFields = ['question', 'options', 'answerKey'].concat(commonFields);
+        let mcqQuestionFields = ['question', 'options', 'answerKey', 'subType'].concat(commonFields);
+        let matchQuestionFields = ['fields', 'subType'].concat(commonFields);
         return (
             (
-              request.resource.data.type == 'question' &&
-              request.resource.data.keys().hasAll(questionFields) &&
-              request.resource.data.keys().hasOnly(questionFields.concat(['imgUrl']))
+              request.resource.data.type == 'question' && 
+              request.resource.data.subType == 'mcq' &&
+              request.resource.data.keys().hasAll(mcqQuestionFields) &&
+              request.resource.data.keys().hasOnly(mcqQuestionFields.concat(['imgUrl']))
             ) || 
+             (
+              request.resource.data.type == 'question' && 
+              request.resource.data.subType == 'match' &&
+              request.resource.data.keys().hasAll(matchQuestionFields) &&
+              request.resource.data.keys().hasOnly(matchQuestionFields)
+            ) ||
             (
               request.resource.data.type == 'concept' && 
               request.resource.data.keys().hasAll(conceptFields) &&

@@ -1,8 +1,9 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const cli = require('firebase-tools')
 
 
-admin.initializeApp({
+const config = {
   credential: admin.credential.applicationDefault(),
   authDomain: "staging-prodigie.firebaseapp.com",
   databaseURL: "https://staging-prodigie.firebaseio.com",
@@ -10,7 +11,9 @@ admin.initializeApp({
   storageBucket: "staging-prodigie.appspot.com",
   messagingSenderId: "478218619325",
   appId: "1:478218619325:web:b3fa068c42450849",
-});
+}
+
+admin.initializeApp(config);
 admin.firestore().settings({ ignoreUndefinedProperties: true })
 
 const ref = {
@@ -137,3 +140,21 @@ exports.forChapterIndex1 = functions.https.onCall(async (data, context) => {
 //     functions.logger.log("err to create index", err);
 //   }
 // });
+
+
+exports.deleteChapter = functions.https.onCall(withAuth(async (data, context) => {
+  const chapterId = data.chapterId;
+  if (!chapterId) {
+    functions.logger.log(`for deleting chapter chapter id missing. So returning`)
+    throw new functions.https.HttpsError('chapter id missing');
+  }
+  functions.logger.log(`deleting chapterId: ${chapterId}`);
+  const path = ref.chapter.doc(chapterId).collection('Cards')
+  await cli.firestore
+    .delete(path, {
+      project: config.projectId,
+      recursive: true,
+      yes: true,
+    });
+  return { code: 200 };
+}))

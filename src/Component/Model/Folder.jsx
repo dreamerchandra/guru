@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import { ReactComponent as Close } from "../../../asserts/svg/close.svg";
-import { MODEL, withModelListener } from "../../../Hoc/Model";
-import api, { paginate } from "../../../js/api";
-import Input from "../../Input";
-import Notification from "../../Notification";
+import { ReactComponent as Close } from "../../asserts/svg/close.svg";
+import { MODEL, withModelListener } from "../../Hoc/Model";
+import api, { paginate } from "../../js/api";
+import Input from "../Input";
+import Notification from "../Notification";
 
 function Folder({ hideModel }) {
   const [fields, setFields] = useState({

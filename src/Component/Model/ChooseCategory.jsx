@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import { ReactComponent as Close } from "../../../asserts/svg/close.svg";
-import { MODEL, withModelListener } from "../../../Hoc/Model";
-import api, { queryConfig } from "../../../js/api";
-import InputClip from "../../ClipInput";
-import MultiSelect from "../../MultiSelect";
-import Notification from "../../Notification";
+import { ReactComponent as Close } from "../../asserts/svg/close.svg";
+import { MODEL, withModelListener } from "../../Hoc/Model";
+import api, { queryConfig } from "../../js/api";
+import MultiSelect from "../MultiSelect";
+import Notification from "../Notification";
 
 function ChooseCategory({ hideModel }) {
   const [fields, setFields] = useState({

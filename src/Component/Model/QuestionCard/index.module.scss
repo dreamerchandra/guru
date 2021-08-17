@@ -1,0 +1,61 @@
+@import '../../../var.scss';
+
+.mcqOptionWrapper {
+  display: flex;
+  overflow-y: auto;
+  padding: 5px;
+
+  * {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  button {
+    padding: 15px 20px;
+    border-radius: 14px;
+    height: fit-content;
+    background-color: transparent;
+    color: $secondary-t;
+    font-size: 18px;
+    @include hover();
+
+    &.selected {
+      font-size: 22px;
+      color: green;
+    }
+  }
+}
+
+.matchList {
+
+  >li::marker {
+    color: red;
+    padding: 15px;
+  }
+
+  .setWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    .matchWrapper {
+      flex-grow: 1;
+    }
+
+    >svg {
+      width: 15px;
+    }
+
+    .matchWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 10px;
+
+      >div {
+        display: flex;
+        gap: 5px;
+      }
+    }
+  }
+}

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import style from "./question.module.scss";
-import { ReactComponent as EditIcon } from "./edit.svg";
-import { MODEL, useModel } from "../../Hoc/Model";
-import { QUESTION_TYPE } from "../New/Model/QuestionCard";
+import style from "./mcq.module.scss";
+import { ReactComponent as EditIcon } from "../edit.svg";
+import { MODEL, useModel } from "../../../Hoc/Model";
+import { QUESTION_TYPE } from "../../Model/QuestionCard";
 
-export default function QuestionCard({
+export default function McqCard({
   question,
   imgUrl,
   answerKey,

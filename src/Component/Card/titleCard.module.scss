@@ -12,9 +12,18 @@
   align-items: center;
   justify-content: center;
   @include hover();
-  overflow: hidden;
   text-overflow: clip;
   gap: 10px;
+  position: relative;
+
+  .moreOption {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    z-index: $EDIT_INDEX;
+  }
 
   .imgHolder {
     background-color: white;

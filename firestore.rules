@@ -140,6 +140,7 @@ service cloud.firestore {
         
 
       allow create: if isValidChapter(request.resource.data) &&
+        checkCreatedAt(request.resource.data) &&
         isOwner(request.resource.data) &&
         checkKeys();
 
@@ -166,15 +167,18 @@ service cloud.firestore {
         return request.auth.uid == chapter.createdBy;
       }
   
+      function checkCreatedAt(chapter) {
+        return (
+          chapter.createdAt is timestamp &&
+          chapter.createdAt != ''
+        )
+      }
       function isValidChapter(chapter) {
         return (
           // chapter.createdBy
           chapter.createdBy is string &&
           chapter.createdBy.size() < 86 &&
           chapter.createdBy != '' &&
-          // chapter.createdAt
-          chapter.createdAt is timestamp &&
-          chapter.createdAt != '' &&
           // chapter.lastModifiedAt
           chapter.lastModifiedAt is timestamp &&
           chapter.lastModifiedAt != '' &&
@@ -207,8 +211,8 @@ service cloud.firestore {
       }
 
       function checkKeys() {
-        let requiredFields = ['createdBy','createdAt','lastModifiedAt','tag'];
-        let optionalFields = ['title','titleImg','category','folders','keywords', 'batches'];
+        let requiredFields = ['createdBy','lastModifiedAt','tag'];
+        let optionalFields = ['title','titleImg','category','folders','keywords', 'batches', 'createdAt'];
         let allFields = requiredFields.concat(optionalFields);
         return request.resource.data.keys().hasAll(requiredFields) &&
         request.resource.data.keys().hasOnly(allFields)

@@ -42,7 +42,8 @@ export default function MultiSelect({
   const classes = useStyles();
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    const selectedOption = options.filter(option => event.target.value.includes(option[displayLabel]))
+    setValue(selectedOption);
   };
 
   const displayValues = values.map((value) => value[displayLabel]);
@@ -55,17 +56,19 @@ export default function MultiSelect({
         variant="filled"
         id={label}
         multiple
-        value={values}
+        value={values.map((value) => value[displayLabel])}
         onChange={handleChange}
         input={<Input />}
-        renderValue={(selected) => selected.map((value) => value[displayLabel]).join(', ')}
+        renderValue={(selected) =>
+          selected.join(', ')
+        }
         MenuProps={MenuProps}
         className="input"
       >
         {options.map((option) => (
           <MenuItem
             key={option[keyLabel]}
-            value={option}
+            value={option[displayLabel]}
             className={classes.menuItem}
           >
             <Checkbox

@@ -9,14 +9,19 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import Notification from "../Notification";
 
-function Chapter({ hideModel }) {
-  const [fields, setFields] = useState({
-    title: "",
-    titleImg: null,
-    tag: [],
-    category: [],
-    folders: [],
-  });
+const getId = ({id}) => id
+
+function Chapter ({ hideModel, model: { info = {} } }) {
+  const { id: chapterId = null } = info;
+  const initialState = {
+    title: info.title || "",
+    titleImg: info.titleImg || null,
+    tag: info.tag || [],
+    category: info.category ?? [],
+    folders: info.folders ?? [],
+  };
+
+  const [fields, setFields] = useState(initialState);
 
   const { data: categoryData = [] } = useQuery(
     "my.category",
@@ -31,7 +36,7 @@ function Chapter({ hideModel }) {
 
   const queryClient = useQueryClient();
 
-  const createChapter = useMutation(api.chapter.create, {
+  const createChapter = useMutation(api.chapter.upsert, {
     onSuccess: () => {
       toast.dark(<Notification showSuccessIcon text="Success" />);
       hideModel();
@@ -112,7 +117,7 @@ function Chapter({ hideModel }) {
       <div className="footer">
         <button
           disabled={createChapter.isLoading}
-          onClick={() => createChapter.mutate(fields)}
+          onClick={() => createChapter.mutate({ fields, chapterId })}
         >
           Save
         </button>

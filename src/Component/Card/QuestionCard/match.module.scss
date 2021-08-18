@@ -1,7 +1,7 @@
 @import '../../../var.scss';
 
-$OPTION_WIDTH: 20ch;
-$OPTION_HEIGHT: 150px;
+$OPTION_WIDTH: 10ch;
+$OPTION_HEIGHT: 100px;
 
 .root {
   display: flex;
@@ -9,13 +9,16 @@ $OPTION_HEIGHT: 150px;
   align-items: center;
   gap: 15px;
   height: calc(#{$OPTION_HEIGHT} * 3);
+  width: 80vw;
   margin: 50px auto;
   @media (max-width: 600px) {
     height: calc(#{$OPTION_HEIGHT} * 2.5);
+    width: 95vw;
     margin: 10px auto;
   }
   overflow: auto;
-  padding: 5px;
+  padding: 5px 20px;
+  box-sizing: border-box;
   &:hover{
     border: 1px solid black;
     border-radius: 10px;
@@ -24,13 +27,13 @@ $OPTION_HEIGHT: 150px;
   .option {
     width: $OPTION_WIDTH;
     @media (max-width: 600px) {
-      width: 43%;
+      width: calc(94vw / 4);
     }
     height: $OPTION_HEIGHT;
     overflow: hidden;
     text-overflow: clip;
     padding: 5px 3px;
-    margin: 5px auto;
+    margin: auto;
     &.selected {
       width: calc(#{$OPTION_WIDTH} + 10px);
       height: calc(#{$OPTION_HEIGHT} + 10px);

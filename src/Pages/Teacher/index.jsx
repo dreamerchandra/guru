@@ -58,6 +58,9 @@ export default function Teacher() {
               to={{
                 pathname: `/chapter/${chapter.id}`,
               }}
+              onEdit={() => {
+                showModel(MODEL.CHAPTER, chapter)
+              }}
             />
           ))}
         </div>

@@ -5,17 +5,32 @@ $OPTION_HEIGHT: 150px;
 
 .root {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 15px;
+  height: calc(#{$OPTION_HEIGHT} * 3);
   margin: 50px auto;
+  @media (max-width: 600px) {
+    height: calc(#{$OPTION_HEIGHT} * 2.5);
+    margin: 10px auto;
+  }
+  overflow: auto;
+  padding: 5px;
+  &:hover{
+    border: 1px solid black;
+    border-radius: 10px;
+  }
 
   .option {
     width: $OPTION_WIDTH;
+    @media (max-width: 600px) {
+      width: 43%;
+    }
     height: $OPTION_HEIGHT;
     overflow: hidden;
     text-overflow: clip;
     padding: 5px 3px;
-    margin: 0px;
+    margin: 5px auto;
     &.selected {
       width: calc(#{$OPTION_WIDTH} + 10px);
       height: calc(#{$OPTION_HEIGHT} + 10px);

@@ -16,7 +16,6 @@ const TileCard = ({
     <Link to={to} className={style.card} onClick={() => to || onClick()}>
       <DefaultMenu
         className={style.moreOption}
-        onDelete={onEdit}
         onEdit={onEdit}
       />
       <div className={style.imgHolder}>

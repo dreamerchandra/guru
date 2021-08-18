@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MODEL, useModel } from '../../Hoc/Model';
 import { DefaultMenu } from './ContextMenu';
 import './learningCard.scss';
+import style from "./titleCard.module.scss";
 
 export default function LearningCards ({
   imgUrl = '',
@@ -22,6 +23,7 @@ export default function LearningCards ({
   return (
     <div className={`flip ${flip && 'flip-vertical'}`} onClick={() => setFlip(!flip)}>
       <DefaultMenu
+        className={style.moreOption}
         onDelete={() => showModel(MODEL.CONCEPT_CARD, { chapterId, title, imgUrl, description, cardId })}
         onEdit={() => showModel(MODEL.CONCEPT_CARD, { chapterId, title, imgUrl, description, cardId })}
       />

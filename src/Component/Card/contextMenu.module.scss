@@ -8,10 +8,8 @@ $MORE_CIRCLE_SIZE: 5px;
 
   >button {
     padding: 2px;
-
-    &.active {
-      border: 1px solid $svg-shade;
-    }
+    background-color: transparent;
+    cursor: pointer;
 
     >code {
       display: block;

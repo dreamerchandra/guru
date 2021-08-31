@@ -1,4 +1,4 @@
-import React, { useState, createContext, useCallback, useContext } from "react";
+import React, { useState, createContext, useCallback, useContext, useEffect } from "react";
 
 const ModelContext = createContext();
 
@@ -27,32 +27,50 @@ export const ModelProvider = ({ children }) => {
     info: {},
   });
 
+  const DEFAULT_AUTO_CLOSE = true;
+  const IDLE_OPEN_WINDOW = 10_000;
+
+  const [autoClose, setAutoClose] = useState(DEFAULT_AUTO_CLOSE);
+  const [lastClose, setLastClose] = useState(0);
+
   const showModel = useCallback((type, info = {}) => {
     checkModel(type);
     setModel({ show: true, type, info });
-  }, []);
+    const openTime = new Date();
+    const reOpenedWithin = openTime - lastClose;
+    if (reOpenedWithin < IDLE_OPEN_WINDOW) {
+      setAutoClose(false);
+    }
+  }, [lastClose]);
 
-  const hideModel = useCallback(() => {
+  const hideModel = useCallback(({ autoClose }) => {
     setModel({ show: false, type: MODEL.NA, info: {} });
+    if (autoClose) {
+      setLastClose(new Date());
+    } else {
+      setAutoClose(true);
+    }
   }, []);
 
   return (
-    <ModelContext.Provider value={{ model, showModel, hideModel }}>
+    <ModelContext.Provider
+      value={{ model, showModel, hideModel, setAutoClose, autoClose }}
+    >
       {children}
     </ModelContext.Provider>
   );
 };
 
 export const useModel = () => {
-  const { showModel, hideModel, model } = useContext(ModelContext);
-  return { showModel, hideModel, model };
+  const { showModel, hideModel, model, autoClose } = useContext(ModelContext);
+  return { showModel, hideModel, model, autoClose };
 };
 
 export const withModelListener = (Component, type) => {
   checkModel(type);
 
   const ModelPopper = (props) => {
-    const { hideModel, model, showModel } = useModel();
+    const { hideModel, model, showModel, autoClose } = useModel();
 
     if (!model.show) return null;
 
@@ -63,6 +81,7 @@ export const withModelListener = (Component, type) => {
           hideModel={hideModel}
           showModel={showModel}
           model={model}
+          autoClose={autoClose}
         />
       );
     }

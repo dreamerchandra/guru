@@ -7,7 +7,7 @@ import api from "../../js/api";
 import InputClip from "../ClipInput";
 import Notification from "../Notification";
 
-function Batch({ hideModel }) {
+function Batch({ hideModel, autoClose }) {
   const [fields, setFields] = useState({
     email: [],
   });
@@ -17,7 +17,7 @@ function Batch({ hideModel }) {
   const createChapter = useMutation(api.batch.create, {
     onSuccess: () => {
       toast.dark(<Notification showSuccessIcon text="Success" />);
-      hideModel();
+      autoClose && hideModel();
       queryClient.invalidateQueries("my.batches");
     },
     onError: (err) => {

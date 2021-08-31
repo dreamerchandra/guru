@@ -11,7 +11,7 @@ import Notification from "../Notification";
 
 const getId = ({id}) => id
 
-function Chapter ({ hideModel, model: { info = {} } }) {
+function Chapter({ hideModel, autoClose, model: { info = {} } }) {
   const { id: chapterId = null } = info;
   const initialState = {
     title: info.title || "",
@@ -39,7 +39,7 @@ function Chapter ({ hideModel, model: { info = {} } }) {
   const createChapter = useMutation(api.chapter.upsert, {
     onSuccess: () => {
       toast.dark(<Notification showSuccessIcon text="Success" />);
-      hideModel();
+      autoClose && hideModel({autoClose: true});
       paginate.chapter.invalidateLastPage();
       queryClient.invalidateQueries("my.chapter");
     },

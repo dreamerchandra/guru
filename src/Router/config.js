@@ -1,3 +1,4 @@
+import Acquaintance from '../Pages/Acquaintance'
 import Chapter from '../Pages/Chapter'
 import Folder from '../Pages/Folder'
 import Home from '../Pages/Home'

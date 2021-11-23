@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { ReactComponent as Close } from "../../asserts/svg/close.svg";
 import { MODEL, withModelListener } from "../../Hoc/Model";
 import api, { queryConfig } from "../../js/api";
-import MultiSelect from "../MultiSelect";
+import Select from "../Select";
 import Notification from "../Notification";
 
 function ChooseCategory({ hideModel }) {
@@ -53,7 +53,7 @@ function ChooseCategory({ hideModel }) {
         <Close onClick={hideModel} />
       </div>
       <div className="body">
-        <MultiSelect
+        <Select
           label="Category"
           values={fields.category}
           setValue={setField("category")}

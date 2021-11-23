@@ -14,7 +14,7 @@
       createdBy: <userId>,
       value: <integer>,
       description: <textfield>,
-      lastModifiedAt: <timestamp>, 
+      lastModifiedAt: <timestamp>,
     }
   }
 }
@@ -59,7 +59,7 @@
             description: String,
             type: <question|concept>,
             subType: <MATCH|MCQ>, // <MATCH>
-            options: Array<{id: string, question: string, qImg: string, aImg: string, answer: string}> 
+            options: Array<{id: string, question: string, qImg: string, aImg: string, answer: string}>
           }
         }
       }
@@ -99,9 +99,39 @@
     }
   }
 }
+
+{
+  revisionQuestion: {
+      <question-id>:  {
+          lastModifiedAt: <timestamp>,
+          createdBy: <personId>,
+          description: String,
+          type: <question|concept>,
+          subType: <MATCH|MCQ>, // <MCQ>
+          imgUrl: url,
+          question: Array<{id: questionId, label: String}>, // for MCQ single entity will be present and for match it will have multiple question
+          options: Array<{id: answerId, label: String}>,
+          answerKey: Array<{questionId: <questionId>, answerId: <answerId>}>,
+          tags: Array<String>,
+          isVerified: <boolean> // true indicated crated by an partner institute
+        },
+      <question-id>: {
+          lastModifiedAt: <timestamp>,
+          createdBy: <personId>,
+          description: String,
+          type: <question|concept>,
+          subType: <MATCH|MCQ>, // <MATCH>
+          options: Array<{id: string, question: string, qImg: string, aImg: string, answer: string}>
+          isVerified: <boolean> // true indicated crated by an partner institute
+        }
+      }
+    }
+  }
+}
 ```
 
 Storage bucket
+
 ```
 {
   chapter: {

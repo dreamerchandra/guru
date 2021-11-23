@@ -3,7 +3,7 @@ import { MODEL, withModelListener } from "../../Hoc/Model";
 import Input from "../Input";
 import { ReactComponent as Close } from "../../asserts/svg/close.svg";
 import InputClip from "../ClipInput";
-import MultiSelect from "../MultiSelect";
+import Select from "../Select";
 import api, { paginate, queryConfig } from "../../js/api";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
@@ -97,7 +97,7 @@ function Chapter({ hideModel, autoClose, model: { info = {} } }) {
           clips={fields.tag}
           setClips={setField("tag")}
         />
-        <MultiSelect
+        <Select
           label="Category"
           values={fields.category}
           setValue={setField("category")}
@@ -105,7 +105,7 @@ function Chapter({ hideModel, autoClose, model: { info = {} } }) {
           keyLabel="id"
           displayLabel="label"
         />
-        <MultiSelect
+        <Select
           label="Folder"
           values={fields.folders}
           setValue={setField("folders")}

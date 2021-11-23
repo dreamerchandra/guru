@@ -26,6 +26,10 @@ export default function Landing() {
       if (role === ROLE.ADMIN) {
         history.push("/admin");
       }
+
+      if (role === ROLE.ACQUAINTANCE) {
+        history.push(`/acquaintance`);
+      }
     });
   }, [history]);
 

@@ -1,12 +1,12 @@
 @import '../../var.scss';
 
 
-$header-height: max(5.5vw, 55px);
+$header-height: 80px;
 $footer-height: 55px;
 
 .modelHolder {
   z-index: $MODEL_INDEX;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -53,6 +53,7 @@ $footer-height: 55px;
   .header {
     width: 100%;
     height: $header-height;
+    flex-shrink: 0;
     overflow: hidden;
     display: flex;
     justify-content: space-between;
@@ -95,6 +96,7 @@ $footer-height: 55px;
   }
 
   .body {
+    scroll-behavior: smooth;
     overflow: auto;
     display: flex;
     grid-gap: 15px;
@@ -105,15 +107,57 @@ $footer-height: 55px;
     place-self: center;
     max-height: calc(100% - max(5.5vw, 55px) + 55px);
     margin: auto;
+
+    .new {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      button {
+        font-size: max(2.0vw, 28px);
+        color: #ffffff;
+        align-self: center;
+        margin-left: 15px;
+        background: transparent;
+        text-decoration: underline;
+        color: $svg-shade;
+        border-radius: 15px;
+        padding: 5px;
+        margin: 0px;
+        cursor: pointer;
+
+        &:last-child {
+          border: 1px solid $svg-shade;
+          text-decoration: none;
+          font-size: max(1.5vw, 22px);
+          padding: 10px 15px;
+        }
+      }
+    }
+
+    .multi-column {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      gap: 5px;
+
+      .column-item {
+        --col: 2;
+        flex-basis: calc(100% / var(--col));
+        overflow: hidden;
+      }
+    }
   }
 
   .footer {
     height: 55px;
+    flex-shrink: 0;
     width: 100%;
     display: flex;
     justify-content: space-around;
     place-content: flex-end;
     align-items: center;
+
 
     * {
       margin: 10px;
@@ -146,4 +190,9 @@ $footer-height: 55px;
   &:hover {
     background-color: $secondary !important;
   }
+}
+
+.new {
+  display: flex;
+  justify-content: center;
 }

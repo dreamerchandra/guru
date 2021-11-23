@@ -59,7 +59,7 @@ export default function Teacher() {
                 pathname: `/chapter/${chapter.id}`,
               }}
               onEdit={() => {
-                showModel(MODEL.CHAPTER, chapter)
+                showModel(MODEL.CHAPTER, chapter);
               }}
             />
           ))}
@@ -69,6 +69,17 @@ export default function Teacher() {
         <div className="cardHeaderWrapper">
           <h1 className="cardHeader">Batches</h1>
           <New onClick={() => showModel(MODEL.BATCHES)} />
+        </div>
+        <div className="cards">
+          {batchData.map((batch) => (
+            <Card key={batch.id} img={batch.imgUrl} label={batch.displayName} />
+          ))}
+        </div>
+      </div>
+      <div className="cardsHolder">
+        <div className="cardHeaderWrapper">
+          <h1 className="cardHeader">Acquaintances</h1>
+          <New onClick={() => showModel(MODEL.WIND_UP_QUESTIONS)} />
         </div>
         <div className="cards">
           {batchData.map((batch) => (

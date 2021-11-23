@@ -7,6 +7,7 @@ export const ROLE = {
   ADMIN: 'admin',
   STUDENT: 'student',
   TEACHER: 'teacher',
+  ACQUAINTANCE: 'acquaintance',
   NA: 'na',
 }
 
@@ -25,6 +26,13 @@ export default class UserRole {
     return this.token
   }
 
+  static getRoleFromFirebase (firebaseRole) {
+    const availableRole = Object.entries(ROLE);
+    const selectedRole = availableRole.find(([, roleValue]) => firebaseRole === roleValue);
+    const [roleKey] = selectedRole || []
+    return roleKey ? ROLE[roleKey]: ROLE.NA
+  }
+
   static updateRole = async (forceUpdate) => {
     if (this.role !== ROLE.NA) return this.role;
 
@@ -34,7 +42,7 @@ export default class UserRole {
     console.log('in updating role, got new role:', role);
     if (!role) return;
 
-    const newRole = role === ROLE.ADMIN ? ROLE.ADMIN : role === ROLE.TEACHER ? ROLE.TEACHER : ROLE.STUDENT
+    const newRole = this.getRoleFromFirebase(role)
     this.updateListenersOnRoleChange(this.role, newRole)
     this.role = newRole;
     return this.role;

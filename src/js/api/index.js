@@ -1,4 +1,5 @@
 import { CACHE_TIME } from "../firebase-helper";
+import acquaintanceApi from "./acquaintance";
 import batchApi from "./batch";
 import cardsApi from "./cards";
 import categoryApi from "./category";
@@ -25,6 +26,7 @@ export function apiFactory (http, baseUrl) {
     cards: cardsApi(http, baseUrl, responseWrapper),
     user: userApi(http, baseUrl, responseWrapper),
     batch: batchApi(http, baseUrl, responseWrapper),
+    acquaintance: acquaintanceApi(http, baseUrl, responseWrapper),
   };
 }
 

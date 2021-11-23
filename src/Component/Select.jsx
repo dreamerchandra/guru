@@ -1,5 +1,5 @@
 import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
+import MatSelect from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import React from "react";
 import {
@@ -12,7 +12,8 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
+    margin: `${theme.spacing(1)} 0`,
+    width: '100%',
   },
   menuItem: {
     background: "#313131",
@@ -31,19 +32,22 @@ const MenuProps = {
   },
 };
 
-export default function MultiSelect({
+export default function Select({
   options,
   label,
-  values,
+  values: _values,
   setValue,
   keyLabel,
   displayLabel,
+  multiple=true,
 }) {
+  const values = multiple ? _values : _values? [_values]: [];
   const classes = useStyles();
 
   const handleChange = (event) => {
     const selectedOption = options.filter(option => event.target.value.includes(option[displayLabel]))
-    setValue(selectedOption);
+    const newState = multiple ? selectedOption : selectedOption[0];
+    setValue(newState);
   };
 
   const displayValues = values.map((value) => value[displayLabel]);
@@ -51,17 +55,15 @@ export default function MultiSelect({
   return (
     <FormControl className={classes.formControl}>
       <InputLabel id={label}>{label}</InputLabel>
-      <Select
+      <MatSelect
         labelId={label}
         variant="filled"
         id={label}
-        multiple
+        multiple={multiple}
         value={values.map((value) => value[displayLabel])}
         onChange={handleChange}
         input={<Input />}
-        renderValue={(selected) =>
-          selected.join(', ')
-        }
+        renderValue={(selected) => selected.join(", ")}
         MenuProps={MenuProps}
         className="input"
       >
@@ -77,7 +79,7 @@ export default function MultiSelect({
             <ListItemText primary={option[displayLabel]} />
           </MenuItem>
         ))}
-      </Select>
+      </MatSelect>
     </FormControl>
   );
 }

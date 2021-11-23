@@ -6,6 +6,7 @@ export const MODEL = {
   CHAPTER: "chapter",
   FOLDER: "folder",
   BATCHES: "batches",
+  WIND_UP_QUESTIONS: "wind_up_questions",
   CONCEPT_CARD: "conceptCards",
   QUESTION_CARD: "questionCards",
   CHOOSE_CATEGORY: "CHOOSE_CATEGORY",
